@@ -1,0 +1,201 @@
+.bar-bottom{
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    color: white;
+    background-color: #5e1d3e;
+    border: none;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding-right:180px;
+    gap:140px;
+}
+body{
+    background-color: #dededc77;
+}
+/*home-body-login*/
+.home-body-login{
+    width: 100%;
+    z-index: 1000;
+    position: absolute;
+}
+.logo-hpc{
+    z-index: 1000;position: absolute;
+    /*background-color: black;*/
+    width:350px;height:90px;
+    margin-top: 10px;margin-left: 10px;
+}
+.logo-hpc img{
+    width: 100%;height: 100%;
+}
+.image-body{
+    position:absolute;
+    /*background-color: blue;*/
+    right:0;top:0;
+    margin-bottom:0px;height: 83.2%;width:1180px;
+    z-index: 0;
+}
+.image-body img{
+    width:100%;height:750px;
+}
+.home-body-login{
+    background-color: white;
+    top:200px;left:50px;
+    width:410px;height:430px;
+    padding-left:30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding-top:15px;
+}
+.home-body-login .text{
+    text-align: center;
+    padding-top:10px;margin-right:35px;
+    padding-bottom:30px;padding-bottom:20px;
+}
+.home-body-login .form-group input{
+    width:350px;height:45px;border-radius: 10px;
+    margin-bottom:12px;
+    padding-left:10px;
+    border:solid rgba(128, 128, 128, 0.579) 1px;
+    position:relative;
+}
+.home-body-login .form-group input:focus{
+    outline:#75234c 0.5px solid;
+    box-shadow: 0 0 0 0.5px #75234c;
+}
+.home-body-login .form-group{
+    margin-bottom:5px;
+}
+.home-body-login button{
+    margin-top:20px;
+    width:350px;height:40px;
+    border-radius: 10px;
+}
+.home-body-login .text-bottom{
+    display: flex;margin-top:60px;gap:10px;
+}
+.home-body-login .text-bottom p{
+    color:rgba(62, 62, 62, 0.846);
+}
+.home-body-login .options{
+    margin-left:5px;
+}
+.home-body-login .options a{
+    margin-left:50px;
+}
+.home-body-login form .options{
+    display: flex;gap:10px;color:rgba(62, 62, 62, 0.846);
+}
+.home-body-login form .options input{
+    margin-right:8px;
+}
+.home-body-login button{
+    padding:7px 25px;
+    cursor: pointer;
+    background-color: #5e1d3e;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:17px;
+    border-radius: 10px;
+    transition:transform 0.8s;
+    border:none;
+}
+.home-body-login button:hover{
+    transform:scale(1.01);
+}
+.home-body-login .text h1{
+    color:#892a59;
+    font-size: 34px;
+}
+.home-body-login .text p{
+    color:rgba(62, 62, 62, 0.682);
+}
+.home-body-login a{
+    color:#5e1d3e;
+    text-decoration: none;
+    margin-top:1px;cursor:pointer;
+    transition:transform 0.5s;
+}
+.home-body-login a:hover{
+    color:#7c2752;
+    transform: scale(1.01);
+}
+.home-body-login .form-group .input-icon{
+    display: absolute;
+}
+.home-body-login .form-group{
+    position: relative;
+    width: 350px;
+    margin-bottom: 15px;
+}
+
+.home-body-login .form-group .input-icon{
+    position: absolute;
+    left: 14px;
+    top: 35%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.home-body-login .form-group .input-icon img{
+    width: 21px;
+    height: 21px;
+    display: block;
+}
+
+.home-body-login .form-group input{
+    width: 100%;
+    height: 45px;
+    padding-left: 45px;
+    padding-right: 12px;
+    border: 1px solid rgba(128,128,128,.5);
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+/*bar*/
+.bar-bottom .bar{
+    margin-left:20px;margin-right:20px;
+}
+.bar-bottom a{
+    color:white;
+    text-decoration: none;
+    margin-right:-40px;margin-left:30px;
+}
+
+/*card-special*/
+.card-special{
+    display: flex;
+    /*background-color: rgb(244, 241, 241);*/
+    margin-top:748px;
+    gap:100px;
+    justify-content: center;
+    background-color: white;box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-left:10px;margin-right:10px;
+}
+.card-special .image img{
+    width:60px;
+}
+.card-special .image-lock img{
+    width:40px;
+}
+.card-special .image-lock{
+    padding-bottom:20px;margin-top:4px;
+}
+.card-special .card-special-0{
+    display: flex;
+    padding-top:10px;
+}
+.card-special .paragraphe{
+    margin-top:13px;margin-left:15px;color:rgb(70, 70, 70);
+}
+.card-special .paragraphe .description{
+    margin-top:3px;
+}

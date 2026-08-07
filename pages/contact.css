@@ -1,0 +1,249 @@
+.home-body-contact{
+    display: flex;
+    justify-content: space-between;
+  width: 100vw;
+    position: relative;
+    /*background-color:rgb(190, 190, 190);*/
+    z-index:1;
+}
+.home-body-contact .title{
+    display:block;
+}
+.home-body-contact .para1{
+    padding-left:50px;
+}
+.home-body-contact .para1 .title{
+    font-size:45px;
+    font-family: 'Inter', sans-serif;
+    display:block;
+    color:rgb(128, 33, 80);
+    font-weight: bold;
+    padding-top:15px;padding-bottom:15px;
+    width:480px;
+    margin-top:100px;margin-bottom:10px;
+}
+.home-body-contact .para1 .description{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #4a4a4a;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.home-body-contact .image-body-contact img{
+    position: relative;margin-top:-30px;
+    width:800px;height:440px;margin-right:0px;
+    /*background-color:blue;*/
+    z-index:0;
+    object-fit: cover;
+}
+/*cards*/
+.cards-contact{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    /*background-color: black;*/
+    z-index:100;
+    margin-top: -30px;
+}
+.card-tel,.card-email,.card-adresse,.card-media{
+    background-color:white;
+    border-radius:10px;
+    /*padding:50px 130px;*/
+    width:500px;height:115px;
+    margin:0px 10px;
+    cursor: pointer;
+    transition: transform 0.8s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.card-tel:hover,.card-email:hover,.card-adresse:hover,.card-media:hover{
+    transform: scale(1.05);
+}
+.card-tel,.card-email,.card-adresse{
+    display: flex;
+}
+.image-icon img{
+    width:65px;height:65px;
+}
+.card-media .logo-media-card a img{
+    width:40px;height:40px;
+}
+.reseau{
+    display: flex;
+}
+.card-content{
+    margin-left:30px;margin-top:10px;
+}
+.image-icon{
+    margin-top:14px;margin-left:20px;
+}
+.card-content .title{
+    font-size:20px;
+    color:#812754;
+    font-family:sans-serif;
+    padding-bottom:10px;/*color: #4a4a4a;*/
+    padding-top:5px;
+}
+.card-content .description{
+    color: #4a4a4ac5;
+}
+.card-content .title-reseau{
+    font-size:20px;
+    color:#ee6300;
+    font-family:sans-serif;
+    padding-bottom:0px;padding-top:8px;
+}
+.description-email{
+    color: #4a4a4ac5;
+    padding-top:8px;    
+}
+.card-email .description{
+    text-decoration: none;
+}
+.logo-media-card{
+    padding-left:120px;margin-top:-25px;
+    margin-bottom:0;
+}
+.logo-media-card a img{
+    margin-right:15px;
+    transition:transform 0.3s;
+}
+.logo-media-card a img:hover{
+    transform: scale(1.1);
+}
+
+/*cards information*/
+.cards-information{
+    margin-top:40px;margin-left:10px;margin-right:5px;margin-bottom:-80px;
+    display:flex;
+    justify-content: space-between;
+    gap:10px;
+}
+.card-envoyer,.card-location,.card-houres{
+    background-color:white;
+    width:400px;height:310px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.card-location .map img{
+    padding-left:40px;
+    padding-bottom:5px;
+    height:220px;
+}
+.card-location .text-info{
+    padding-bottom:10px;padding-left:40px;
+}
+.card-location .map p{
+    color:#812754;
+    text-decoration: none;
+    padding-left:40px;padding-top:3px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;text-decoration: underline;
+}
+.card-location .map p:hover{
+    color:#bc3a7b;
+    cursor:pointer;
+}
+.text-info{
+    font-size:20px;
+    color:#812754;
+    font-family:sans-serif;
+    padding-left:24px;padding-top:18px;padding-bottom:20px;
+}
+.input-nom,.input-email{
+    padding:5px;padding-right:21px;
+}
+
+.input-nom,.input-email,.input-select,.input-textarea,.input-submit{
+    margin-bottom:10px;margin-left:25px;
+    border:solid rgba(128, 128, 128, 0.57) 1px;border-radius: 5px;
+}
+.input-nom:focus,.input-email:focus,.input-select:focus,.input-textarea:focus,.input-submit:focus{
+    outline: rgba(128, 128, 128, 0.631) 1px solid;
+    box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.2);
+}
+.input-email{
+    margin-left:5px;
+}
+.input-select{
+    /*padding:5px;padding-right:228px;*/width:405px;padding:5px 0px;padding-left:5px;
+}
+.input-textarea{
+    /*padding-right:228px;padding-bottom:80px;padding-left:5px;padding-top:8px;*/
+    width:405px;padding:5px 0px;padding-left:5px;padding-bottom:40px;
+    font-family: 'Gill Sans', sans-serif;
+}
+.card-envoyer{
+    height:310px;width:495px;margin-right:10px;
+}
+.card-envoyer .input-submit,.card-envoyer p{
+    display: inline-block;
+}
+.input-submit{
+    padding:8px 18px;
+    cursor: pointer;
+    background-color: #5e1d3e;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:14px;
+    border-radius: 7px;
+    margin-left:24px;
+    transition:transform 0.8s;
+    border:none;
+}
+.input-submit:hover{
+    transform:scale(1.1);
+}
+.card-envoyer p{
+    font-size:14px;
+    color: #4a4a4ac5;
+    margin-left:8px;
+}
+.card-houres{
+    width:300px;
+    margin-left:7px;
+}
+.horaires{
+    padding-left:24px;
+    margin-top:-7px;
+}
+.cards-information .ligne{
+    border-bottom: 1px solid #eee;
+    padding-top:20px;
+}
+.jour{
+    padding-right:50px;
+    color:rgb(57, 57, 57);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.jour-samedi{
+    padding-right:133px;
+    color:rgb(57, 57, 57);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.jour-dimanche{
+    padding-right:117px;
+    color:rgb(57, 57, 57);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.horaire{
+    color:rgb(84, 84, 84);
+}
+.details{
+    display:flex;
+}
+.details .description {
+    padding-top:20px;padding-left:20px;/*color: #4a4a4ac5;*/
+}
+.details .description p{
+    color: #4a4a4aeb;
+}
+.details .description h1{
+    font-size:15px;
+    padding-bottom:10px;
+    color:#812754;
+    font-family:sans-serif;
+}
+.details .image-icon img{
+    /*background-color:blue;*/
+    width:119.5px;height:118px;
+}

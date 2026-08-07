@@ -1,0 +1,197 @@
+.cards-history{
+    margin-top:10px;
+}
+.cards-history .card-content .title{
+    font-size:20px;
+}
+.cards-history .card-content{
+    margin-left:12px;
+}
+.card-1,.card-2,.card-3,.card-4{
+    width:210px;height:85px;
+}
+.cards-history .card-3 .card-content .title{
+    color:rgb(128, 33, 80);    
+}
+.cards-history .card-2 .card-content .title{
+    color:#c29500;    
+}
+/*les informations de la ville*/
+.card-villes{
+    display:flex;
+    justify-content: space-between;
+    margin-top:30px;margin-left:10px;margin-right:10px;
+}
+.card-villes .card-ville-2{
+    display: flex;
+    flex-direction: column;
+}
+.card-villes .card-ville-2 .image-ville img{
+    width:100px;
+}
+.card-ville-1,.card-villes .statique,.card-ville-3{
+    background-color:white;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius:10px;
+    cursor:pointer;
+}
+.card-ville-1:hover,.card-villes .statique:hover,.card-ville-3:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(94, 29, 62, 0.18);
+    border-color: rgba(94, 29, 62, 0.15);
+}
+.card-villes .card-ville-1 .paragraphe{
+    /*background-color: blue;*/
+    width:400px;
+    margin-top:10px;margin-bottom:10px;margin-right:10px;
+    color:rgb(111, 111, 111);
+}
+.card-ville-1{
+    padding-left:15px;padding-top:15px;
+}
+.card-villes .card-ville-1 h2{
+    color:rgb(128, 33, 80);
+    font-family:Arial;
+    font-weight: bold;
+    font-size:24px;
+}
+.card-villes .card-ville-1 .info{
+    color:rgb(128, 33, 80);font-weight: bold;
+}
+.card-villes .card-ville-1 .info{
+    margin-bottom:8px;
+}
+.card-villes .card-ville-1 .info-det{
+    margin-left:5px;
+    color:rgb(111, 111, 111);
+    padding-top:10px;
+}
+.info-texte .ligne-info{
+    margin-bottom: 10px;
+}
+.card-villes .card-ville-1 .card-ville-1-mission{
+    background-color:rgba(255, 179, 0, 0.209);margin-right:10px;margin-bottom:10px;margin-top:25px;
+    border-radius: 10px;
+    padding-left:17px;padding-top:14px;padding-bottom:13px;
+}
+.card-villes .card-ville-1 .card-ville-1-mission h3{
+    color:rgb(255, 98, 0);
+    padding-bottom:10px;
+}
+.card-villes .card-ville-1 .card-ville-1-mission p{
+    color:rgb(78, 78, 78);    
+}
+.card-villes .card-ville-2 .image-ville{
+    height:260px;
+    background-color: white;
+    width:500px;
+    margin-bottom:20px;
+    border-radius: 10px;
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+.card-villes .card-ville-2 .image-ville img{
+    width:100%;height:100%;border-radius: 10px;
+    cursor:pointer;
+}
+.card-villes .card-ville-2 .image-ville:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(94, 29, 62, 0.18);
+    border-color: rgba(94, 29, 62, 0.15);    
+}
+.card-villes .card-ville-3{
+    background-color: white;
+    width:280px;
+}
+.card-villes .card-ville-2 .statique{
+    height:133px;
+    padding-left:15px;padding-top:12px;
+}
+.card-villes .card-ville-2 .statique h2{
+    color:rgb(128, 33, 80);
+    font-family:Arial;
+    font-weight: bold;    
+    font-size:23px;
+}
+.card-villes .card-ville-1 .card-ville-1-mission .mission{
+    display: flex;
+}
+.card-villes .card-ville-1 .info p{
+    color:rgba(175, 5, 5, 0.209);
+    margin-left:10px;
+}
+.card-villes .card-ville-1 .card-ville-1-mission .mission .icon img{
+    width:20px;margin-right:10px;
+    margin-bottom:4px;
+}
+/*class-div*/
+.card-villes .class-div{
+    display: flex;
+    margin-left:-10px;margin-right:3px;
+    gap:4px;
+}
+.card-villes .class-div .classe{
+    display: flex;margin-left:-20px;margin-top:6px;
+}
+.card-villes .image-icon img{
+    width:50px;height:50px;
+}
+.card-villes .class-div .classe .texte{
+    margin-top:14px;margin-left:3px;
+}
+.card-villes .class-div .classe .texte p{
+    color:rgb(111, 111, 111);
+    font-size:13px;
+}
+.card-villes .class-div .classe .texte h1{
+    font-size: 18px;margin-top:3px;
+    color:rgb(128, 33, 80);
+    font-family:Arial;
+}
+/*card-ville-3*/
+.card-villes .card-ville-3 h2{
+    color:rgb(128, 33, 80);
+    font-family:Arial;
+    font-weight: bold;    
+    font-size:23px;    
+}
+.card-villes .card-ville-3{
+    padding-left:10px;padding-top:14px;
+}
+.card-villes .card-ville-3 iframe{
+    margin-top:10px;
+}
+
+/*cards-ville-info*/
+.cards-ville-info{
+    display: flex;
+    gap:18px;
+    justify-content: center;
+    margin-top:40px;
+    margin-bottom:-100px;
+}
+.cards-ville-info .card-v{
+    background-color:white;
+    width:234px;
+    display: flex;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor:pointer;
+    transition:transform 0.3s;
+}
+.cards-ville-info .card-v:hover{
+    transform: scale(1.05);
+}
+.cards-ville-info .card-v .image-icon img{
+    width:50px;height:50px;margin-bottom:10px;
+}
+.cards-ville-info .card-v p{
+    margin-top:25px;margin-left:8px;
+    color:rgb(128, 33, 80);
+    font-family:Arial;
+    font-weight: bold;    
+    font-size:16px;    
+}
+.cards-ville-info a{
+    text-decoration: none;
+}

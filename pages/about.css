@@ -1,0 +1,200 @@
+/*cards*/
+.cards-info{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    /*background-color: black;*/
+    z-index:100;
+    margin-top: -30px;
+}
+.card-people,.card-statique,.card-pib,.card-inflation{
+    background-color:white;
+    border-radius:10px;
+    /*padding:50px 130px;*/
+    width:500px;height:170px;
+    margin:0px 10px;
+    cursor: pointer;
+    transition: transform 0.8s;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.card-people:hover,.card-statique:hover,.card-pib:hover,.card-inflation:hover{
+    transform:scale(1.05);
+}
+.card-people,.card-statique,.card-pib{
+    display: flex;
+}
+.cards-info .image-icon img{
+    width:65px;height:65px;
+}
+.card-inflation .logo-media-card a img{
+    width:40px;height:40px;
+}
+.cards-info .reseau{
+    display: flex;
+}
+.cards-info .card-content{
+    margin-left:30px;margin-top:10px;
+}
+.cards-info .image-icon{
+    margin-top:35px;margin-left:20px;
+}
+.cards-info .card-content .title{
+    font-size:36px;
+    color:#812754;
+    font-family:Arial;
+    font-weight: bold;
+    padding-bottom:4px;/*color: #4a4a4a;*/
+    padding-top:5px;
+}
+.cards-info .card-content .description{
+    color: #4a4a4ad8;
+    font-size:18px;font-weight: bold;
+    font-family: Roboto;
+}
+.cards-info .card-content .title-reseau{
+    font-size:20px;
+    color:#ee6300;
+    font-family:sans-serif;
+    padding-bottom:0px;padding-top:8px;
+}
+.description-email{
+    color: #4a4a4ac5;
+    padding-top:8px;    
+}
+.card-statique .description{
+    text-decoration: none;
+}
+.logo-media-card{
+    padding-left:120px;margin-top:-25px;
+    margin-bottom:0;
+}
+.logo-media-card a img{
+    margin-right:15px;
+    transition:transform 0.3s;
+}
+.logo-media-card a img:hover{
+    transform: scale(1.1);
+}
+.cards-info .details,.cards-info .details-pourcentage,.cards-info .details-inflation{
+    font-size:14px;
+    color: #4a4a4ac5;
+}
+.cards-info .details{
+    padding-top:30px;
+}
+.cards-info .details-pourcentage{
+    padding-top:10px;
+}
+.cards-info .details-inflation{
+    padding-top:55px;
+}
+
+/*mission cards*/
+.cards-mission{
+    display: flex;
+    justify-content: space-between;
+    margin-left:10px;margin-right:20px;margin-top:25px;margin-bottom:-80px;
+}
+.card-notre-mession,.card-valeurs,.card-chiffre{
+    background-color:white;
+    width:400px;height:310px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.cards-mission .text{
+    font-size:23px;
+    color:#812754;
+    font-family:Arial;
+    padding:20px;
+}
+.card-valeurs .ligne .image img{
+    width:35px;
+}
+.cards-mission .card-notre-mession .image img{
+    width:190px;
+}
+.card-chiffre .image img{
+    width:70px;
+}
+.card-chiffre .chiffre{
+    display: flex;
+}
+.card-valeurs .ligne{
+    display: flex;
+    padding-left:50px;
+}
+.card-valeurs{
+    width:280px;
+}
+.card-chiffre{
+    width:500px;
+}
+.card-notre-mession .notre-mission{
+    display:flex;
+}
+.card-notre-mession .text-para{
+    padding-left:22px;
+}
+.card-notre-mession .text-para p{
+    width:202px;
+    font-size:17px;
+    color: #4a4a4ac5;
+}
+.card-notre-mession .notre-mission button{
+    padding:7px 25px;
+    cursor: pointer;
+    background-color: #5e1d3e;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:17px;
+    border-radius: 10px;
+    transition:transform 0.8s;
+    border:none;
+    margin-top:30px;
+}
+.card-notre-mession .notre-mission button:hover{
+    transform:scale(1.1);
+}
+.card-valeurs .cara-text{
+    font-size:17px;
+    color: #4a4a4ac5;
+    padding-top:5px;padding-left:10px;    
+}
+.card-chiffre .chiffre{
+    padding-left:80px;
+}
+.card-chiffre .chiffre .text-info{
+    font-size:36px;
+    color:#812754;
+    font-family:Arial;
+    font-weight: bold;
+    padding-right:6px;
+}
+.card-chiffre .chiffre1{
+    padding-right:50px;
+    border-right:solid #C9A227 2px;
+}
+.card-chiffre .chiffre2{
+    padding-left:50px;
+}
+.card-chiffre .chiffre1 .text-info{
+    margin-right:10px;
+}
+.card-chiffre .paragraphe{
+    text-align: center;
+}
+.card-chiffre .chiffre1,
+.card-chiffre .chiffre2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+.card-chiffre .paragraphe p{
+    margin-top:-15px;
+    font-size:17px;font-weight: bold;
+    color: #000000c5;
+}
+.card-chiffre .paragraphe p span{
+    color: #4a4a4ac5;
+}
