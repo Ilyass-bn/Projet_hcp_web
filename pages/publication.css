@@ -1,0 +1,45 @@
+/*.table-background*/
+.table-background .search-act-cat select{
+    width:200px;
+    padding:8px 15px;
+    border:1px solid #d6d6d6;
+    border-radius:6px;
+    font-size:15px;
+    outline:none;
+    box-sizing:border-box;
+    margin-top: 16px;
+    cursor: pointer;
+    position: absolute;right:15%;
+}
+.table-background .search-calendrier input{
+    right:30%;
+}
+.table-background .table-login .status-autre{
+    color:rgba(111, 0, 247, 0.87);
+    background-color: rgba(230, 87, 246, 0.215);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgba(111, 0, 247, 0.87);
+}
+.table-background .table-login .status-bull{
+    color:rgb(247, 115, 0);
+    background-color: rgba(249, 218, 78, 0.239);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(247, 115, 0);
+}
+.table-background .table-login .status-br{
+    color:rgb(92, 92, 92);
+    background-color: rgba(157, 157, 156, 0.239);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(92, 92, 92);
+}
+.form-group textarea{
+    border:solid rgba(128, 128, 128, 0.57) 1px;border-radius: 5px;
+    width:600px;height:150px;
+}
+.form-group textarea:focus{
+    outline: rgba(128, 128, 128, 0.631) 1px solid;
+    box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.2);
+}
