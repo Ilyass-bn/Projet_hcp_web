@@ -1,0 +1,88 @@
+/*les categorie */
+.table-background .table-container .table-login .status-autres{
+    color:rgb(92, 92, 92);
+    background-color: rgba(157, 157, 156, 0.239);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(92, 92, 92);
+}
+.table-background .table-container .table-login .status-economie{
+    color:rgb(201, 136, 14);
+    background-color: rgba(238, 186, 90, 0.313);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(201, 136, 14);
+}
+.table-background .table-container .table-login .status-travail{
+    color:rgba(30, 138, 76);
+    background-color: rgba(48, 169, 100, 0.152);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px 
+    solid rgba(30, 138, 76);
+}
+.table-background .table-container .table-login .status-dev{
+    color:rgba(214, 41, 40);
+    background-color: rgba(209, 74, 74, 0.215);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgba(214, 41, 40);
+}
+.table-background .table-container .table-login .status-condition{
+    color:rgba(232, 183, 29);
+    background-color: rgba(229, 202, 112, 0.23);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgba(232, 183, 29);
+}
+.table-background .table-container .table-login .status-pop{
+    color:rgb(0, 8, 245);
+    background-color: rgba(105, 109, 219, 0.146);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(0, 8, 245);
+}
+.table-background .title_table h1{
+    font-size:25px;
+    color:#5e1d3e;
+}
+/*table*/
+.table-background{
+    margin-top:10px;
+}
+.table-background .buttons .btn-add{
+    position:absolute;
+    padding: 11px;
+    cursor: pointer;
+    background-color: #5e1d3e;
+    color: white;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 15px;
+    border-radius: 5px;
+    border: none;
+    transition: transform 0.7s,color 0.7s,background-color 0.7s,border 0.7s;
+    right:6%;
+}
+.table-background .buttons .btn-exp{
+    position: absolute;
+    padding: 11px;
+    cursor: pointer;
+    color:#5e1d3e;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 15px;
+    border-radius: 5px;
+    border: #5e1d3e solid 1px;
+    transition: transform 0.3s,color 0.7s,background-color 0.7s;
+    right:0;
+}
+.table-background .buttons .btn-exp:hover{
+    transform: scale(1.02);
+    color:white;
+    background-color: #5e1d3e;
+}
+
+.table-background .title_table{
+    display: flex;
+    position:relative;
+    margin-bottom:10px;
+}

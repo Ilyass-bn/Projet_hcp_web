@@ -45,6 +45,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     <title>Document</title>
 </head>
 
+
 <!--supprimer affiche-->
 <div id="deletepub" class="modal" >
     <div class="modal-content">
@@ -276,7 +277,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
+            <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Médias</a>
@@ -324,7 +325,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/rapport-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalrapp ?></h2>
-                    <p class="card-det"><b>Rapports et études</b><br><span>32% du total</span></p>
+                    <p class="card-det"><b>Rapports et études</b><br><span><?= ($totalrapp/$totalpub)*100 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -332,7 +333,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/analyse-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalnot ?></h2>
-                    <p class="card-det"><b>Notes et analyses</b><br><span>41% du total</span></p>
+                    <p class="card-det"><b>Notes et analyses</b><br><span><?= ($totalnot/$totalpub)*100 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -340,7 +341,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/revu-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalautre ?></h2>
-                    <p class="card-det"><b>Bulletins et revues</b><br><span>32% du total</span></p>
+                    <p class="card-det"><b>Bulletins et revues</b><br><span><?= ($totalautre/$totalpub)*100 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -348,12 +349,12 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/bruillet-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalbull ?></h2>
-                    <p class="card-det"><b>Autres documents</b><br><span>17% du total</span></p>
+                    <p class="card-det"><b>Autres documents</b><br><span><?= ($totalbull/$totalpub)*100 ?>% du total</span></p>
                 </div>
                 
             </div>
         </div>
-
+        
         <div class="table-background">
             <!-- barre de recherche -->
             <div class="tab-search">
@@ -382,82 +383,83 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             </div>
             
             <!--tableaux-->
-            <table class="table-login">
-                <thead>
-                    <tr>
-                        <th>ID publication</th>
-                        <th>Images</th>
-                        <th>Titre de la publication</th>
-                        <th>Description</th>
-                        <th>Categorie</th>
-                        <th>Statut</th>
-                        <th>date de publication</th>
-                        <th>Link</th>
-                        <th>Telechargement</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <?php if(count($users)>0): ?>
-                    <?php foreach($users as $user): ?>    
-                            <tr>
-                                <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_pub']) ?></td>
-                                <td class="td-image">
-                                    <?php if(!empty($user['Images'])): ?>
-                                         <img src="data:image/png;base64,<?= base64_encode($user['Images']) ?>" 
+            <div class="table-container">
+                <table class="table-login">
+                    <thead>
+                        <tr>
+                            <th>ID publication</th>
+                            <th>Image</th>
+                            <th>Titre de la publication</th>
+                            <th>Description</th>
+                            <th>Categorie</th>
+                            <th>Statut</th>
+                            <th>date de publication</th>
+                            <th>Link</th>
+                            <th>Telechargement</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <?php if(count($users)>0): ?>
+                        <?php foreach($users as $user): ?>    
+                                <tr>
+                                    <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_pub']) ?></td>
+                                    <td class="td-image">
+                                        <?php if(!empty($user['Images'])): ?>
+                                            <img src="data:image/png;base64,<?= base64_encode($user['Images']) ?>" 
                                                 alt="Image publication">
-                                    <?php else: ?>
-                                    <span>—</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($user['Titre_pub']) ?></td>
-                                <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description']) ?></td>
-                                <td>
-                                    <?php if($user['Categorie']=="Rapports et études"): ?>
-                                        <span class="status-termine">Rapports et études</span>
-                                    <?php elseif($user['Categorie']=="Notes et analyses"): ?>
-                                        <span class="status-en-cours">Notes et analyses</span>
-                                    <?php elseif($user['Categorie']=="Bulletins et revues"): ?>
-                                        <span class="status-bull">Bulletins et revues</span>
-                                    <?php elseif($user['Categorie']=="Autres documents"): ?>
-                                        <span class="status-autre">Autres documents</span>
-                                    <?php else:?>
-                                        <span class="status-br">-</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td>
-                                    <?php if($user['Statut']=="Publié"): ?>
-                                        <span class="status-termine">Publié</span>
-                                    <?php elseif($user['Statut']=="Brouillons"): ?>
-                                        <span class="status-br">Brouillons</span>
-                                    <?php else:?>
-                                        <span class="status-br">-</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($user['date_pub']) ?></td>
-                                <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="link-cell">
-                                    <a href="../<?= $user['link_pub'] ?>" download="<?= $user['link_pub'] ?>" class="btn-download" onclick="">
-                                        <img src="../src/icons/download-icon.png" alt="Telecharger">
-                                    </a>
-                                </td>
-                                <td><?= htmlspecialchars($user['nbre_tel']) ?></td>
-                                <td class="actions-cell">
-                                    <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre_pub'], ENT_QUOTES) ?>','<?= !empty($user['Images']) ? "data:image/png;base64,".base64_encode($user['Images']) : "" ?>','<?= htmlspecialchars($user['Categorie'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Statut'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['date_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars(str_replace(["\r\n","\n","\r"], ' ', $user['description']), ENT_QUOTES) ?>','<?= htmlspecialchars($user['link_pub'], ENT_QUOTES) ?>'); return false;">
-                                        <img src="../src/icons/edit-icon.png" alt="Modifier">
-                                    </a>
-                                    <a href="utilisateurs_actions/publication/supprimer_pub.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
-                                        <img src="../src/icons/delete-icon.png" alt="Supprimer">
-                                    </a>
-                                </td>
-                            </tr>
+                                        <?php else: ?>
+                                        <span>—</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['Titre_pub']) ?></td>
+                                    <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description']) ?></td>
+                                    <td>
+                                        <?php if($user['Categorie']=="Rapports et études"): ?>
+                                            <span class="status-termine">Rapports et études</span>
+                                        <?php elseif($user['Categorie']=="Notes et analyses"): ?>
+                                            <span class="status-en-cours">Notes et analyses</span>
+                                        <?php elseif($user['Categorie']=="Bulletins et revues"): ?>
+                                            <span class="status-bull">Bulletins et revues</span>
+                                        <?php elseif($user['Categorie']=="Autres documents"): ?>
+                                            <span class="status-autre">Autres documents</span>
+                                        <?php else:?>
+                                            <span class="status-br">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td>
+                                        <?php if($user['Statut']=="Publié"): ?>
+                                            <span class="status-termine">Publié</span>
+                                        <?php elseif($user['Statut']=="Brouillons"): ?>
+                                            <span class="status-br">Brouillons</span>
+                                        <?php else:?>
+                                            <span class="status-br">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['date_pub']) ?></td>
+                                    <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="link-cell">
+                                        <a href="../<?= $user['link_pub'] ?>" download="<?= $user['link_pub'] ?>" class="btn-download" onclick="">
+                                            <img src="../src/icons/download-icon.png" alt="Telecharger">
+                                        </a>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['nbre_tel']) ?></td>
+                                    <td class="actions-cell">
+                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre_pub'], ENT_QUOTES) ?>','<?= !empty($user['Images']) ? "data:image/png;base64,".base64_encode($user['Images']) : "" ?>','<?= htmlspecialchars($user['Categorie'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Statut'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['date_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars(str_replace(["\r\n","\n","\r"], ' ', $user['description']), ENT_QUOTES) ?>','<?= htmlspecialchars($user['link_pub'], ENT_QUOTES) ?>'); return false;">
+                                            <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                        </a>
+                                        <a href="utilisateurs_actions/publication/supprimer_pub.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
+                                            <img src="../src/icons/delete-icon.png" alt="Supprimer">
+                                        </a>
+                                    </td>
+                                </tr>
                 
-                    <?php endforeach; ?>
-                    <?php else: ?>
-                </tbody>
-                <?php endif; ?>
-            </table>
-        </div>            
-
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                    </tbody>
+                    <?php endif; ?>
+                </table>
+            </div>            
+        </div>
 
         <!--card statique-->
         <div class="card-statique">

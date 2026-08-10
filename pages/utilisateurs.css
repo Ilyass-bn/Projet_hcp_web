@@ -148,6 +148,19 @@ th{
 .table-login .actions-cell{
     padding-right:0px;
 }
+
+.table-container {
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.table-login{
+    margin-top:0px;
+}
 /*supprimer card*/
 .modal{
     display:none;

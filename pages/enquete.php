@@ -277,7 +277,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
+            <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Médias</a>
@@ -367,71 +367,73 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             </div>
             
             <!--tableaux-->
-            <table class="table-login">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Image</th>
-                        <th>Titre de l'enquête</th>
-                        <th>Type</th>
-                        <th>Direction/Region</th>
-                        <th>Statut</th>
-                        <th>date debut</th>
-                        <th>date fin</th>
-                        <th>Link</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                    <?php if(count($users)>0): ?>
-                    <?php foreach($users as $user): ?>    
-                            <tr>
-                                <td><?= htmlspecialchars($user['ID_enquete']) ?></td>
-                                <td class="td-image">
-                                    <?php if(!empty($user['Image_enquete'])): ?>
-                                         <img src="data:image/png;base64,<?= base64_encode($user['Image_enquete']) ?>" 
+            <div class="table-container">
+                <table class="table-login">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Image</th>
+                            <th>Titre de l'enquête</th>
+                            <th>Type</th>
+                            <th>Direction/Region</th>
+                            <th>Statut</th>
+                            <th>date debut</th>
+                            <th>date fin</th>
+                            <th>Link</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <?php if(count($users)>0): ?>
+                        <?php foreach($users as $user): ?>    
+                                <tr>
+                                    <td><?= htmlspecialchars($user['ID_enquete']) ?></td>
+                                    <td class="td-image">
+                                        <?php if(!empty($user['Image_enquete'])): ?>
+                                            <img src="data:image/png;base64,<?= base64_encode($user['Image_enquete']) ?>" 
                                                 alt="Image enquête">
-                                    <?php else: ?>
-                                    <span>—</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($user['Titre']) ?></td>
-                                <td><?= htmlspecialchars($user['Type']) ?></td>
-                                <td><?= htmlspecialchars($user['Direction']) ?></td>
-                                <td>
-                                    <?php if($user['Statut']=="En cours"): ?>
-                                        <span class="status-en-cours">En cours</span>
-                                    <?php elseif($user['Statut']=="Terminée"): ?>
-                                        <span class="status-termine">Terminée</span>
-                                    <?php elseif($user['Statut']=="Brouillons"): ?>
-                                        <span class="status-br">Brouillons</span>
-                                    <?php else:?>
-                                        <span class="status-br">-</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($user['date_debut']) ?></td>
-                                <td><?= htmlspecialchars($user['date_fin']) ?></td>
-                                <td class="link-cell">
-                                    <a href="../<?= $user['link'] ?>" download="<?= $user['link'] ?>" class="btn-download" onclick="">
-                                        <img src="../src/icons/download-icon.png" alt="Telecharger">
-                                    </a>
-                                </td>
-                                <td class="actions-cell">
-                                    <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_enquete'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Type'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Direction'], ENT_QUOTES) ?>','<?= $user['date_debut'] ?>','<?= $user['date_fin'] ?>','<?= $user['Statut'] ?>','<?= !empty($user['Image_enquete']) ? "data:image/png;base64,".base64_encode($user['Image_enquete']) : "" ?>','<?= htmlspecialchars($user['link'], ENT_QUOTES) ?>'); return false;" title="Modifier">
-                                        <img src="../src/icons/edit-icon.png" alt="Modifier">
-                                    </a>
-                                    <a href="utilisateurs_actions/supprimer_enquete.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
-                                        <img src="../src/icons/delete-icon.png" alt="Supprimer">
-                                    </a>
-                                </td>
-                            </tr>
+                                        <?php else: ?>
+                                        <span>—</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['Titre']) ?></td>
+                                    <td><?= htmlspecialchars($user['Type']) ?></td>
+                                    <td><?= htmlspecialchars($user['Direction']) ?></td>
+                                    <td>
+                                        <?php if($user['Statut']=="En cours"): ?>
+                                            <span class="status-en-cours">En cours</span>
+                                        <?php elseif($user['Statut']=="Terminée"): ?>
+                                            <span class="status-termine">Terminée</span>
+                                        <?php elseif($user['Statut']=="Brouillons"): ?>
+                                            <span class="status-br">Brouillons</span>
+                                        <?php else:?>
+                                            <span class="status-br">-</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($user['date_debut']) ?></td>
+                                    <td><?= htmlspecialchars($user['date_fin']) ?></td>
+                                    <td class="link-cell">
+                                        <a href="../<?= $user['link'] ?>" download="<?= $user['link'] ?>" class="btn-download" onclick="">
+                                            <img src="../src/icons/download-icon.png" alt="Telecharger">
+                                        </a>
+                                    </td>
+                                    <td class="actions-cell">
+                                        <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_enquete'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Type'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Direction'], ENT_QUOTES) ?>','<?= $user['date_debut'] ?>','<?= $user['date_fin'] ?>','<?= $user['Statut'] ?>','<?= !empty($user['Image_enquete']) ? "data:image/png;base64,".base64_encode($user['Image_enquete']) : "" ?>','<?= htmlspecialchars($user['link'], ENT_QUOTES) ?>'); return false;" title="Modifier">
+                                            <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                        </a>
+                                        <a href="utilisateurs_actions/supprimer_enquete.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
+                                            <img src="../src/icons/delete-icon.png" alt="Supprimer">
+                                        </a>
+                                    </td>
+                                </tr>
                 
-                    <?php endforeach; ?>
-                    <?php else: ?>
-                </tbody>
-                <?php endif; ?>
-            </table>
-        </div>            
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                    </tbody>
+                    <?php endif; ?>
+                </table>
+            </div>   
+        </div>         
 
 
         <!--card statique-->

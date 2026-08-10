@@ -43,3 +43,15 @@
     outline: rgba(128, 128, 128, 0.631) 1px solid;
     box-shadow: 0 0 0 1px rgba(128, 128, 128, 0.2);
 }
+.table-container {
+    width: 100%;
+    height: 400px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom:10px;
+}
+.table-login{
+    margin-top:0px;
+}

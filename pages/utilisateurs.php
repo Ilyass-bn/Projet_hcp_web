@@ -180,7 +180,7 @@ $totalbloque = $pdo->query("Select count(*) from login where Status=0")->fetchCo
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
+            <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Médias</a>
@@ -266,50 +266,52 @@ $totalbloque = $pdo->query("Select count(*) from login where Status=0")->fetchCo
             </div>
             
             <!--tableaux-->
-            <table class="table-login">
+            <div class="table-container">
+                <table class="table-login">
                      
-                <thread>
-                    <tr>
-                        <th>Nom complet</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Direction/Region</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thread>
-                <tbody id="usersTableBody">
-                    <?php if(count($users)>0): ?>
-                    <?php foreach($users as $user): ?>    
-                            <tr>
-                                <td><?= htmlspecialchars($user['nom_complet']) ?></td>
-                                <td><?= htmlspecialchars($user['Email']) ?></td>
-                                <td><?= htmlspecialchars($user['Role']) ?></td>
-                                <td><?= htmlspecialchars($user['Region']) ?></td>
-                                <td>
-                                    <?php if($user['Status']=="1"): ?>
-                                        <span class="status-actif">Actif</span>
-                                    <?php else: ?>
-                                        <span class="Status-bloque">Bloqué</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="actions-cell">
-                                    <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['nom_complet'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Email'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Region'], ENT_QUOTES) ?>','<?= $user['Status'] ?>'); return false;" title="Modifier">
-                                        <img src="../src/icons/edit-icon.png" alt="Modifier">
-                                    </a>
-                                    <a href="utilisateurs_actions/supprimer_utilisateur.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
-                                        <img src="../src/icons/delete-icon.png" alt="Supprimer">
-                                    </a>
-                                </td>
-                            </tr>
+                    <thead>
+                        <tr>
+                            <th>Nom complet</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Direction/Region</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                        <?php if(count($users)>0): ?>
+                        <?php foreach($users as $user): ?>    
+                                <tr>
+                                    <td><?= htmlspecialchars($user['nom_complet']) ?></td>
+                                    <td><?= htmlspecialchars($user['Email']) ?></td>
+                                    <td><?= htmlspecialchars($user['Role']) ?></td>
+                                    <td><?= htmlspecialchars($user['Region']) ?></td>
+                                    <td>
+                                        <?php if($user['Status']=="1"): ?>
+                                            <span class="status-actif">Actif</span>
+                                        <?php else: ?>
+                                            <span class="Status-bloque">Bloqué</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="actions-cell">
+                                        <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['nom_complet'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Email'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Region'], ENT_QUOTES) ?>','<?= $user['Status'] ?>'); return false;" title="Modifier">
+                                            <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                        </a>
+                                        <a href="utilisateurs_actions/supprimer_utilisateur.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
+                                            <img src="../src/icons/delete-icon.png" alt="Supprimer">
+                                        </a>
+                                    </td>
+                                </tr>
                 
-                    <?php endforeach; ?>
-                    <?php else: ?>
-                </tbody>
-                <?php endif; ?>
-            </table>
-        </div>            
-        </div>
+                        <?php endforeach; ?>
+                        <?php else: ?>
+                    </tbody>
+                    <?php endif; ?>
+                </table>
+            </div>            
+            </div>
+            </div>
 
 
     
