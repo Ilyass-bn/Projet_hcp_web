@@ -16,6 +16,19 @@ $totaltelech = $pdo->query("Select SUM(nbre_stat) from statique")->fetchColumn()
 $totalpublie = $pdo->query("Select count(*) from statique where Statut_stat='Publié'")->fetchColumn();
 $totalbr = $pdo->query("Select count(*) from statique where Statut_stat='Brouillons'")->fetchColumn();
 
+
+//gestion_donne_economique 
+$sql = $pdo->query("SELECT ID_eco,PIB,Population,PIB_dp,Inflation FROM gestion_donne_economique");
+$economique = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+//gestion_reseau 
+$sql = $pdo->query("SELECT ID_res,Direction_reg,Bureaux_prov,Donnees_coll FROM gestion_reseau ");
+$reseau = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+//gestion_donn_dem 
+$sql = $pdo->query("SELECT id,ID_hcp,Hcp,habitants,Taux_croiss,Superficie,Taux_chomage,Population,PIB_reg,Etablissements,Taux_emploi FROM gestion_donn_dem ");
+$donne = $sql->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <?php
@@ -234,6 +247,168 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
 
 
+
+
+<!--Gestion des données économiques (À propos)-->
+<!--modifier affiche-->
+<div id="edit_statique_eco" class="modal">
+    <div class="modal-content modal-edit">
+
+        <h2>Modifier les données économiques</h2>
+
+        <form action="utilisateurs_actions/gestion/modifier_gestion_donne_economique.php" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" id="ID_eco" name="ID_eco">
+
+            <div class="form-group">
+                <label>PIB réel(milliers MAD)</label>
+                <input type="text" id="PIB_rel" name="PIB_rel" required>
+            </div>
+
+            <div class="form-group">
+                <label>Population(millions)</label>
+                <input type="text" id="Population" name="Population">
+            </div>
+
+            <div class="form-group">
+                <label>PIB Dépenses publiques</label>
+                <input id="PIB_dep" name="PIB_dep" required>
+            </div>
+
+            <div class="form-group">
+                <label>Inflation</label>
+                <input id="Inflation" name="Inflation" required>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeEditModal_eco()">
+                    Annuler
+                </button>
+
+                <button type="submit" class="btn-enregistre">
+                    Enregistrer
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<!--Gestion du réseau statistique (Découvrir)-->
+<!--modifier affiche-->
+<div id="edit_statique_eco_1" class="modal">
+    <div class="modal-content modal-edit">
+
+        <h2>Modifier les réseau statistique</h2>
+
+        <form action="utilisateurs_actions/gestion/modifier_gestion_reseau.php" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" id="ID_res" name="ID_res">
+
+            <div class="form-group">
+                <label>Directions Régionales</label>
+                <input type="text" id="Direction_reg" name="Direction_reg" required>
+            </div>
+
+            <div class="form-group">
+                <label>Bureaux Provinciaux</label>
+                <input type="text" id="Bureaux_prov" name="Bureaux_prov">
+            </div>
+
+            <div class="form-group">
+                <label>Données collectées</label>
+                <input id="Donnees_coll" name="Donnees_coll" required>
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeEditModal_eco_1()">
+                    Annuler
+                </button>
+
+                <button type="submit" class="btn-enregistre">
+                    Enregistrer
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<!--Gestion des données démographiques et sociales-->
+<!--modifier affiche-->
+<div id="edit_statique_donne_dem" class="modal">
+    <div class="modal-content modal-edit">
+
+        <h2>Modifier les données démographiques et sociales</h2>
+
+        <form action="utilisateurs_actions/gestion/modifier_gestion_donn_dem.php" method="POST" enctype="multipart/form-data">
+
+            <input type="hidden" id="id_dem" name="id_dem">
+
+            <div class="form-group">
+                <label>Hcp</label>
+                <input type="text" id="Hcp" name="Hcp" required>
+            </div>
+
+            <div class="form-group">
+                <label>habitants</label>
+                <input type="text" id="habitants" name="habitants">
+            </div>
+
+            <div class="form-group">
+                <label>Taux de croissance</label>
+                <input id="Taux_croiss" name="Taux_croiss">
+            </div>
+
+            <div class="form-group">
+                <label>Superficie</label>
+                <input id="Superficie" name="Superficie">
+            </div>
+
+            <div class="form-group">
+                <label>Taux de chômage</label>
+                <input id="Taux_chomage" name="Taux_chomage">
+            </div>
+
+            <div class="form-group">
+                <label>Population</label>
+                <input id="Population_dem" name="Population_dem">
+            </div>
+
+            <div class="form-group">
+                <label>PIB régional</label>
+                <input id="PIB_reg" name="PIB_reg">
+            </div>
+
+            <div class="form-group">
+                <label>Établissements</label>
+                <input id="Etablissements" name="Etablissements">
+            </div>
+
+            <div class="form-group">
+                <label>Taux d'emploi</label>
+                <input id="Taux_emploi" name="Taux_emploi">
+            </div>
+
+            <div class="modal-buttons">
+                <button type="button" class="btn-cancel" onclick="closeEditModal_donne_dem()">
+                    Annuler
+                </button>
+
+                <button type="submit" class="btn-enregistre">
+                    Enregistrer
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     //publication par statut
@@ -288,7 +463,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Médias</a>
+            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <a href="#" onclick="changeActive(this)">Support</a>
@@ -497,125 +672,148 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
 
         <!--gestion des statiques nombre-->
-        <div class="table-background">
-            <div class="title_table">
-                <h1>Gestion des indicateurs socio-démographiques</h1>
-                <div class="buttons">
-                    <button class="btn-add" onclick="openAddModal()">Créer une statique</button>
-                    <button class="btn-exp" onclick="openAddModal()">Exporter</button>
+        <div class="table-col2" style="display:flex;position:relative;margin-bottom:20px;">
+            <div class="table-background" style="height:200px;margin-top:20px;">
+                <div class="title_table">
+                    <h1>Gestion des données économiques (À propos)</h1>
                 </div>
+                <!--tableaux-->
+                <div class="table-container"style="height:120px;">
+                    <table class="table-login" >
+                        <thead>
+                            <tr>
+                                <th>PIB réel(milliers MAD)</th>
+                                <th>Population(millions)</th>
+                                <th>PIB Dépenses publiques</th>
+                                <th>Inflation</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <?php if(count($economique)>0): ?>
+                            <?php foreach($economique as $economiques): ?>    
+                                    <tr>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($economiques['PIB']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($economiques['Population']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($economiques['PIB_dp']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($economiques['Inflation']) ?></td>
+
+                                        <td class="actions-cell">
+                                            <a href="#" onclick="openEditModal_eco('<?= $economiques['ID_eco'] ?>','<?= htmlspecialchars($economiques['PIB'], ENT_QUOTES) ?>','<?= htmlspecialchars($economiques['Population'], ENT_QUOTES) ?>','<?= htmlspecialchars($economiques['PIB_dp'], ENT_QUOTES) ?>','<?= htmlspecialchars($economiques['Inflation'], ENT_QUOTES) ?>'); return false;">
+                                                <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                            </a>
+                                        </td>
+                                    </tr>
                 
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                        </tbody>
+                        <?php endif; ?>
+                    </table>
+                </div>            
             </div>
-            <!-- barre de recherche -->
-            <div class="tab-search">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Rechercher une publication..." onkeyup="filterUsers()">
+
+            <div class="table-background" style="height:200px;margin-top:20px;position:absolute;right:0;">
+                <div class="title_table">
+                    <h1>Gestion du réseau statistique (Découvrir)</h1>
                 </div>
-                <div class="search-act-blo">
-                    <select id="filterStatus"  onchange="filterUsers()">
-                        <option value="">Tous les statuts</option>
-                        <option value="Publié">Publié</option>
-                        <option value="Brouillons">Brouillons</option>
-                    </select>
-                </div>
-                <div class="search-calendrier">
-                    <input type="date" id="searchcalendrier" onchange="filterUsers()">
-                </div>
-                <div class="search-act-cat">
-                    <select id="filterCategorie"  onchange="filterUsers()">
-                        <option value="">Tous les categorie</option>
-                        <option value="Economie">Economie</option>
-                        <option value="Marché du travail">Marché du travail</option>
-                        <option value="Revenu & conditions de vie">Revenu & conditions de vie</option>
-                        <option value="Population & démographie">Population & démographie</option>
-                        <option value="Développement durable">Développement durable</option>
-                        <option value="Autres...">Autres...</option>
-                    </select>
-                </div>
-            </div>
-            
-            <!--tableaux-->
-            <div class="table-container">
-                <table class="table-login">
-                    <thead>
-                        <tr>
-                            <th>ID statique</th>
-                            <th>Image</th>
-                            <th>Titre de la statique</th>
-                            <th>Description</th>
-                            <th>Categorie</th>
-                            <th>Statut</th>
-                            <th>date de publication</th>
-                            <th>Link</th>
-                            <th>Telechargement</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTableBody">
-                        <?php if(count($users)>0): ?>
-                        <?php foreach($users as $user): ?>    
-                                <tr>
-                                    <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_stat']) ?></td>
-                                    <td class="td-image">
-                                        <?php if(!empty($user['Image_stat'])): ?>
-                                            <img src="data:image/png;base64,<?= base64_encode($user['Image_stat']) ?>" 
-                                                alt="Image publication">
-                                        <?php else: ?>
-                                        <span>—</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= htmlspecialchars($user['Titre_stat']) ?></td>
-                                    <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description_stat']) ?></td>
-                                    <td>
-                                        <?php if($user['Categorie_stat']=="Economie"): ?>
-                                            <span class="status-economie">Economie</span>
-                                        <?php elseif($user['Categorie_stat']=="Marché du travail"): ?>
-                                            <span class="status-travail">Marché du travail</span>
-                                        <?php elseif($user['Categorie_stat']=="Revenu & conditions de vie"): ?>
-                                            <span class="status-condition">Revenu & conditions de vie</span>
-                                        <?php elseif($user['Categorie_stat']=="Population & démographie"): ?>
-                                            <span class="status-pop">Population & démographie</span>
-                                        <?php elseif($user['Categorie_stat']=="Développement durable"): ?>
-                                            <span class="status-dev">Développement durable</span>
-                                         <?php elseif($user['Categorie_stat']=="Autres..."): ?>
-                                            <span class="status-autres">Autres...</span>
-                                        <?php else:?>
-                                            <span class="status-br">-</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td>
-                                        <?php if($user['Statut_stat']=="Publié"): ?>
-                                            <span class="status-termine">Publié</span>
-                                        <?php elseif($user['Statut_stat']=="Brouillons"): ?>
-                                            <span class="status-br">Brouillons</span>
-                                        <?php else:?>
-                                            <span class="status-br">-</span>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td><?= htmlspecialchars($user['date_stat_pub']) ?></td>
-                                    <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="link-cell">
-                                        <a href="../<?= $user['link_files'] ?>" download="<?= $user['link_files'] ?>" class="btn-download" onclick="">
-                                            <img src="../src/icons/download-icon.png" alt="Telecharger">
-                                        </a>
-                                    </td>
-                                    <td><?= htmlspecialchars($user['nbre_stat']) ?></td>
-                                    <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre_stat'], ENT_QUOTES) ?>','<?= !empty($user['Image_stat']) ? "data:image/png;base64,".base64_encode($user['Image_stat']) : "" ?>','<?= htmlspecialchars($user['Categorie_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Statut_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['date_stat_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars(str_replace(["\r\n","\n","\r"], ' ', $user['description_stat']), ENT_QUOTES) ?>','<?= htmlspecialchars($user['link_files'], ENT_QUOTES) ?>'); return false;">
-                                            <img src="../src/icons/edit-icon.png" alt="Modifier">
-                                        </a>
-                                        <a href="utilisateurs_actions/statique/supprimer_stat.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;"> 
-                                            <img src="../src/icons/delete-icon.png" alt="Supprimer">
-                                        </a>
-                                    </td>
-                                </tr>
+                <!--tableaux Gestion du réseau statistique-->
+                <div class="table-container"style="height:120px;">
+                    <table class="table-login" >
+                        <thead>
+                            <tr>
+                                <th>Directions Régionales</th>
+                                <th>Bureaux Provinciaux</th>
+                                <th>Données collectées</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <?php if(count($reseau)>0): ?>
+                            <?php foreach($reseau as $reseaus): ?>    
+                                    <tr>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($reseaus['Direction_reg']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($reseaus['Bureaux_prov']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($reseaus['Donnees_coll']) ?></td>
+
+                                        <td class="actions-cell">
+                                            <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal_eco_1('<?= $reseaus['ID_res'] ?>','<?= htmlspecialchars($reseaus['Direction_reg'], ENT_QUOTES) ?>','<?= htmlspecialchars($reseaus['Bureaux_prov'], ENT_QUOTES) ?>','<?= htmlspecialchars($reseaus['Donnees_coll'], ENT_QUOTES) ?>'); return false;">
+                                                <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                            </a>
+                                        </td>
+                                    </tr>
                 
-                        <?php endforeach; ?>
-                        <?php else: ?>
-                    </tbody>
-                    <?php endif; ?>
-                </table>
-            </div>            
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                        </tbody>
+                        <?php endif; ?>
+                    </table>
+                </div>            
+            </div>
         </div>
+
+
+
+        <!--Gestion des données démographiques et sociales-->
+        <div class="table-background" style="height:200px;margin-top:20px;margin-bottom:330px;">
+                <div class="title_table">
+                    <h1>Gestion des données démographiques et sociales</h1>
+                </div>
+                <!-- barre de recherche -->
+                <div class="tab-search">
+                    <div class="search-bar">
+                        <input type="text" id="searchInput_dem" placeholder="Rechercher.." onkeyup="filter_donne_dem()">
+                    </div>
+                    <div class="buttons">
+                        <button class="btn-exp" onclick="openAddModal()">Exporter</button>
+                    </div>
+                </div>
+                <!--tableaux-->
+                <div class="table-container"style="height:400px;">
+                    <table class="table-login" >
+                        <thead>
+                            <tr>
+                                <th>Hcp</th>
+                                <th>habitants</th>
+                                <th>Taux de croissance</th>
+                                <th>Superficie</th>
+                                <th>Taux de chômage</th>
+                                <th>Population</th>
+                                <th>PIB régional</th>
+                                <th>Établissements</th>
+                                <th>Taux d'emploi</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody_dem">
+                            <?php if(count($donne)>0): ?>
+                            <?php foreach($donne as $donnes): ?>    
+                                    <tr>
+                                        <td style="max-width:250px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Hcp']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['habitants']) ?></td>
+                                        <td style="max-width:20px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Taux_croiss']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Superficie']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Taux_chomage']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Population']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['PIB_reg']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Etablissements']) ?></td>
+                                        <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($donnes['Taux_emploi']) ?></td>
+
+                                        <td class="actions-cell">
+                                            <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal_donne_dem('<?= $donnes['id'] ?>','<?= htmlspecialchars($donnes['Hcp'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['habitants'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Taux_croiss'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Superficie'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Taux_chomage'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Population'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['PIB_reg'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Etablissements'], ENT_QUOTES) ?>','<?= htmlspecialchars($donnes['Taux_emploi'], ENT_QUOTES) ?>'); return false;">
+                                                <img src="../src/icons/edit-icon.png" alt="Modifier">
+                                            </a>
+                                        </td>
+                                    </tr>
+                
+                            <?php endforeach; ?>
+                            <?php else: ?>
+                        </tbody>
+                        <?php endif; ?>
+                    </table>
+                </div>            
+            </div>
+        
 
         <!--card statique-->
         <div class="card-statique">
@@ -647,7 +845,27 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <h1 class="card-title">Activités récentes</h1>
             </div>
         </div>
+        <div class="card-statique">
+            <div class="card-st">
+                <h1 class="card-title">Publications par statut</h1>
+                <div class="statusChart" style="height:300px;">
+                   <canvas  id="ecoChart"></canvas> 
+                </div>
+                
+            </div>
+            <div class="card-st" style="width:800px;">
+                <h1 class="card-title">Réponses collectées</h1>
+                <div class="monthlyChart" style="height:280px;">
+                    <canvas id="demChart"></canvas>
+                </div>
+            </div>
+            <div class="card-st">
+                <h1 class="card-title">Activités récentes</h1>
+            </div>
+        </div>
     </div>
+    </div>
+    
 
 
     
@@ -904,6 +1122,226 @@ document.addEventListener("DOMContentLoaded", function () {
                     backgroundColor: "#6B123C",
                     padding: 10,
                     displayColors: false
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, grid: { color: "#f0f0f0" } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+});
+</script>
+
+<script>
+//Gestion des données économiques (À propos)
+ //modifier affiche 
+    function openEditModal_eco(ID_eco,PIB_rel,Population,PIB_dep,Inflation){
+        document.getElementById("ID_eco").value = ID_eco;
+        document.getElementById("PIB_rel").value = PIB_rel;
+        document.getElementById("Population").value = Population;
+        document.getElementById("PIB_dep").value = PIB_dep;
+        document.getElementById("Inflation").value = Inflation;
+
+
+        document.getElementById("edit_statique_eco").style.display = "flex";
+    }
+
+    function closeEditModal_eco(){
+        document.getElementById("edit_statique_eco").style.display="none";
+    }
+    
+//Gestion du réseau statistique (Découvrir)
+    function openEditModal_eco_1(ID_res,Direction_reg,Bureaux_prov,Donnees_coll){
+        document.getElementById("ID_res").value = ID_res;
+        document.getElementById("Direction_reg").value = Direction_reg;
+        document.getElementById("Bureaux_prov").value = Bureaux_prov;
+        document.getElementById("Donnees_coll").value = Donnees_coll;
+
+
+        document.getElementById("edit_statique_eco_1").style.display = "flex";
+    }
+
+    function closeEditModal_eco_1(){
+        document.getElementById("edit_statique_eco_1").style.display="none";
+    }      
+    
+//Gestion des données démographiques et sociales
+    function openEditModal_donne_dem(id,Hcp,habitants,Taux_croiss,Superficie,Taux_chomage,Population,PIB_reg,Etablissements,Taux_emploi){
+        document.getElementById("id_dem").value =	id;
+        document.getElementById("Hcp").value =	Hcp;
+        document.getElementById("habitants").value = habitants;
+        document.getElementById("Taux_croiss").value = Taux_croiss;
+        document.getElementById("Superficie").value = Superficie;
+        document.getElementById("Taux_chomage").value = Taux_chomage;
+        document.getElementById("Population_dem").value = Population;
+        document.getElementById("PIB_reg").value = PIB_reg;
+        document.getElementById("Etablissements").value = Etablissements;
+        document.getElementById("Taux_emploi").value = Taux_emploi;
+
+
+        document.getElementById("edit_statique_donne_dem").style.display = "flex";
+    }
+
+    function closeEditModal_donne_dem(){
+        document.getElementById("edit_statique_donne_dem").style.display="none";
+    }
+    //search by filter
+    function filter_donne_dem() {
+        const input = document.getElementById("searchInput_dem").value.toLowerCase().trim();
+        const rows = document.querySelectorAll("#usersTableBody_dem tr");
+
+        rows.forEach(row => {
+            const Hcp = row.children[0]?.textContent.toLowerCase() || "";
+            const habitants = row.children[1]?.textContent.toLowerCase() || "";
+            const Taux_croiss= row.children[2]?.textContent.toLowerCase() || "";
+            const Superficie = row.children[3]?.textContent.trim() || "";
+            const Taux_chom = row.children[4]?.textContent.trim() || "";
+            const Population = row.children[5]?.textContent.trim() || "";
+            const PIB_reg = row.children[6]?.textContent.trim() || "";
+            const Etablissements = row.children[7]?.textContent.trim() || "";
+            const Taux_emp = row.children[8]?.textContent.trim() || "";
+
+            const matchesText = Hcp.includes(input) || habitants.includes(input) || Taux_croiss.includes(input) || Superficie.includes(input) || Taux_chom.includes(input) || Population.includes(input) || PIB_reg.includes(input) || Etablissements.includes(input) || Taux_emp.includes(input);
+
+            if (matchesText) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+    });
+    }                              
+
+</script>
+
+
+<script>
+//Gestion des données économiques (À propos) card
+document.addEventListener("DOMContentLoaded", function () {
+    const ctxEco = document.getElementById("ecoChart");
+
+    const ecoLabels = <?= json_encode(array_map(fn($e, $i) => "Données " . ($i + 1), $economique, array_keys($economique))) ?>;
+    const pibData        = <?= json_encode(array_column($economique, 'PIB')) ?>;
+    const populationData = <?= json_encode(array_column($economique, 'Population')) ?>;
+    const pibDepData     = <?= json_encode(array_column($economique, 'PIB_dp')) ?>;
+    const inflationData  = <?= json_encode(array_column($economique, 'Inflation')) ?>;
+
+    new Chart(ctxEco, {
+        type: "bar",
+        data: {
+            labels: ecoLabels,
+            datasets: [
+                {
+                    label: "PIB réel (milliers MAD)",
+                    data: pibData,
+                    backgroundColor: "#6B123C"
+                },
+                {
+                    label: "Population (millions)",
+                    data: populationData,
+                    backgroundColor: "#C9880E"
+                },
+                {
+                    label: "PIB Dépenses publiques",
+                    data: pibDepData,
+                    backgroundColor: "#1E8A4C"
+                },
+                {
+                    label: "Inflation",
+                    data: inflationData,
+                    backgroundColor: "#D62928"
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: "bottom" },
+                tooltip: {
+                    backgroundColor: "#6B123C",
+                    padding: 10,
+                    displayColors: true
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, grid: { color: "#f0f0f0" } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const ctxDem = document.getElementById("demChart");
+
+    const demLabels      = <?= json_encode(array_column($donne, 'Hcp')) ?>;
+    const tauxCroissData = <?= json_encode(array_column($donne, 'Taux_croiss')) ?>;
+    const tauxChomData   = <?= json_encode(array_column($donne, 'Taux_chomage')) ?>;
+    const populationData = <?= json_encode(array_column($donne, 'Population')) ?>;
+    const pibRegData      = <?= json_encode(array_column($donne, 'PIB_reg')) ?>;
+
+    new Chart(ctxDem, {
+        type: "line",
+        data: {
+            labels: demLabels,
+            datasets: [
+                {
+                    label: "Taux de croissance (%)",
+                    data: tauxCroissData,
+                    borderColor: "#6B123C",
+                    backgroundColor: "#6B123C",
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.35,
+                    fill: false
+                },
+                {
+                    label: "Taux de chômage (%)",
+                    data: tauxChomData,
+                    borderColor: "#D62928",
+                    backgroundColor: "#D62928",
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.35,
+                    fill: false
+                },
+                {
+                    label: "Population (millions)",
+                    data: populationData,
+                    borderColor: "#C9880E",
+                    backgroundColor: "#C9880E",
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.35,
+                    fill: false
+                },
+                {
+                    label: "PIB régional",
+                    data: pibRegData,
+                    borderColor: "#1E8A4C",
+                    backgroundColor: "#1E8A4C",
+                    pointRadius: 5,
+                    pointHoverRadius: 7,
+                    borderWidth: 2,
+                    tension: 0.35,
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: true, position: "bottom" },
+                tooltip: {
+                    backgroundColor: "#6B123C",
+                    padding: 10,
+                    displayColors: true
                 }
             },
             scales: {

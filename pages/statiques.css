@@ -86,3 +86,7 @@
     position:relative;
     margin-bottom:10px;
 }
+
+#edit_statique_eco_1 .form-group,#edit_statique_eco .form-group{
+    display: block;
+}
