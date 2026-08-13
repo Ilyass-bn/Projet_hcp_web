@@ -463,7 +463,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
+            <a href="contenu_site.php" class="<?php echo ($current == 'contenu_site.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <a href="#" onclick="changeActive(this)">Support</a>
@@ -490,6 +490,9 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <h1>Statiques</h1>
                 <p>Gérez les statiques et documents officiels du HCP</p>
             </div>
+            <div class="buttons">
+                    <button class="btn-exp" onclick="window.location.href='utilisateurs_actions/gestion/export_allstat_pdf.php'">Exporter All statistiques</button>
+                </div>
         </div>
         <div class="cards-cara">
             <div class="card-cara">
@@ -555,7 +558,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <h1>Gestion des statistiques</h1>
                 <div class="buttons">
                     <button class="btn-add" onclick="openAddModal()">Créer une statique</button>
-                    <button class="btn-exp" onclick="openAddModal()">Exporter</button>
+                    <button class="btn-exp" onclick="window.location.href='utilisateurs_actions/gestion/export_stat_pdf.php'">Exporter</button>
                 </div>
                 
             </div>
@@ -765,7 +768,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                         <input type="text" id="searchInput_dem" placeholder="Rechercher.." onkeyup="filter_donne_dem()">
                     </div>
                     <div class="buttons">
-                        <button class="btn-exp" onclick="openAddModal()">Exporter</button>
+                        <button class="btn-exp" onclick="window.location.href='utilisateurs_actions/gestion/export_donne_dem_pdf.php'">Exporter</button>
                     </div>
                 </div>
                 <!--tableaux-->
@@ -816,7 +819,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
         
 
         <!--card statique-->
-        <div class="card-statique">
+        <div class="card-statique" style="margin-bottom:0px;">
             <div class="card-st">
                 <h1 class="card-title">Publications par statut</h1>
                 <div class="statusChart">
