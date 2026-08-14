@@ -145,6 +145,7 @@ html, body {
     bottom: 0;
     margin-top:150px;margin-bottom:0px;
     width:100%;
+    bottom:0;
 }
 .bar-bas .reseau{
     display:block;
@@ -202,4 +203,20 @@ html, body {
     text-decoration-style: solid;
     text-decoration-color:#5e1d3e;
     text-decoration-thickness: 1.7px;
+}
+html,
+body{
+    height: 100%;
+    margin: 0;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #dededc77;
+}
+
+.bottom{
+    margin-top: auto;
 }

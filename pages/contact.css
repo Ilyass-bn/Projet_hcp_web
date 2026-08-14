@@ -6,6 +6,11 @@
     /*background-color:rgb(190, 190, 190);*/
     z-index:1;
 }
+html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
 .home-body-contact .title{
     display:block;
 }
@@ -246,4 +251,9 @@
 .details .image-icon img{
     /*background-color:blue;*/
     width:119.5px;height:118px;
+}
+.home-body-contact .image-body-contact img{
+    width: 100%;
+    max-width: 800px;
+    height: auto;
 }

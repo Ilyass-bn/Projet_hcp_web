@@ -7,7 +7,18 @@ $sql = $pdo->query("SELECT id,ID_hcp,description_hcp,presentation_hcp,creation_h
 $users = $sql->fetchAll(PDO::FETCH_ASSOC);
 $totalenquete = $pdo->query("Select count(*) from enquete")->fetchColumn();
 
-
+//hcp_description 
+$sql = $pdo->query("SELECT id,description from hcp_des ORDER BY id DESC");
+$hcp_des = $sql->fetchAll(PDO::FETCH_ASSOC);
+$description_hcp = $pdo->query("Select description from hcp_des where id=0")->fetchColumn();
+$title_hcp = $pdo->query("Select title from hcp_des where id=0")->fetchColumn();
+//hcp link 
+$sql = $pdo->query("SELECT id,facebook_link,x_link,linkedin_link,youtube_link,instagram_link from reseaux_link ORDER BY id DESC");
+$facebook_link = $pdo->query("Select facebook_link from reseaux_link where id=0")->fetchColumn();
+$x_link = $pdo->query("Select x_link from reseaux_link where id=0")->fetchColumn();
+$linkedin_link = $pdo->query("Select linkedin_link from reseaux_link where id=0")->fetchColumn();
+$youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")->fetchColumn();
+$instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
 
 ?>
 <?php
@@ -224,9 +235,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['gps_link']) ?></td>
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['site_link']) ?></td>
                                     <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>', '<?= htmlspecialchars(str_replace(["\r\n", "\n", "\r"], ' ', $user['description_hcp'] ?? ''), ENT_QUOTES) ?>', '<?= htmlspecialchars(str_replace(["\r\n", "\n", "\r"], ' ', $user['presentation_hcp'] ?? ''), ENT_QUOTES) ?>', '<?= htmlspecialchars($user['creation_hcp'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['enquete_link'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['publication_link'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['donne_reg_link'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['rapp_hcp_link'] ?? '', ENT_QUOTES) ?>', '<?= !empty($user['Image_hcp']) ? 'data:image/png;base64,'.base64_encode($user['Image_hcp']) : '' ?>', '<?= htmlspecialchars($user['contact_hcp_link'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['site_link'] ?? '', ENT_QUOTES) ?>', '<?= htmlspecialchars($user['gps_link'] ?? '', ENT_QUOTES) ?>'); return false;">
-                                            <img src="../src/icons/edit-icon.png" alt="Modifier">
-                                        </a>
+                                        <a href="#" class="btn-modifier" data-id="<?= htmlspecialchars($user['id']) ?>" data-description="<?= htmlspecialchars($user['description_hcp'] ?? '') ?>" data-presentation="<?= htmlspecialchars($user['presentation_hcp'] ?? '') ?>" data-creation="<?= htmlspecialchars($user['creation_hcp'] ?? '') ?>" data-enquete="<?= htmlspecialchars($user['enquete_link'] ?? '') ?>" data-publication="<?= htmlspecialchars($user['publication_link'] ?? '') ?>" data-donnereg="<?= htmlspecialchars($user['donne_reg_link'] ?? '') ?>" data-rapport="<?= htmlspecialchars($user['rapp_hcp_link'] ?? '') ?>" data-image="<?= !empty($user['Image_hcp']) ? 'data:image/png;base64,'.base64_encode($user['Image_hcp']) : '' ?>" data-contact="<?= htmlspecialchars($user['contact_hcp_link'] ?? '') ?>" data-site="<?= htmlspecialchars($user['site_link'] ?? '') ?>" data-gps="<?= htmlspecialchars($user['gps_link'] ?? '') ?>" onclick="openEditModalFromRow(this); return false;"><img src="../src/icons/edit-icon.png" alt="Modifier"></a>
                                     </td>
                                 </tr>
                 
@@ -242,31 +251,74 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
         <!--card statique-->
         <div class="card-statique">
             <div class="card-st">
-                <h1 class="card-title">Enquêtes par statut</h1>
-                <div class="statusChart">
-                   <canvas  id="statusChart"></canvas> 
+                <div class="title">
+                   <h1 class="card-title">Modifier la description du site</h1> 
+                   <p>Cette description apparaît dans le pied de page et sur les moteurs de recherche.</p>
                 </div>
+                <form action="utilisateurs_actions/contenu/modifier_description.php" method="POST">
+                    <input type="hidden" id="id_hcp" name="id_hcp">
+
+                    <div class="form-group" style="margin-bottom:-5px;">
+                        <label>Title actuelle</label>
+                        <input style="margin-left:0px;width:750px;" id="title" name="title" value="<?= htmlspecialchars($title_hcp) ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description actuelle</label>
+                        <textarea id="description" name="description" required><?= $description_hcp ?></textarea>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn-enregistre">
+                            Enregistrer la description
+                        </button>
+                    </div>
+                </form>
                 
             </div>
             <div class="card-st">
-                <h1 class="card-title">Progression globale</h1>
-                <div class="progression-container">
-                    <canvas id="progressChart"></canvas>
-                    <div class="progression-center">
-                        <span class="progression-value" id="progressValue"></span>
-                        <span class="progression-label">Progression moyenne</span>
-                        <span class="progression-subtitle">Toutes enquêtes</span>
+                <div class="title">
+                   <h1 class="card-title">Liens des réseaux sociaux</h1> 
+                   <p>Ajoutez ou modifiez les liens de vos réseaux sociaux officiels.</p>
+                </div>
+                <form action="utilisateurs_actions/contenu/modifier_link.php" method="POST">
+                    <input type="hidden" id="id_hcp_link" name="id_hcp_link">
+                    <div class="form-group" style="display:flex;flex-direction:row;">
+                        <div class="image"><img src="../src/icons/facebook-icon.png"></div>
+                        <label class="title_icon">Facebook</label>
+                        <input id="facebook_link" name="facebook_link" value="<?= htmlspecialchars($facebook_link) ?>" required>
                     </div>
-                </div>
-            </div>
-            <div class="card-st">
-                <h1 class="card-title">Réponses collectées</h1>
-                <div class="monthlyChart">
-                    <canvas id="monthlyChart"></canvas>
-                </div>
-            </div>
-            <div class="card-st">
-                <h1 class="card-title">Activités récentes</h1>
+
+                    <div class="form-group" style="display:flex;flex-direction:row;">
+                        <div class="image"><img src="../src/icons/twitter-icon.png"></div>
+                        <label style="margin-right:85px;" class="title_icon">X</label>
+                        <input id="x_link" name="x_link" required value="<?= htmlspecialchars($x_link) ?>">
+                    </div>
+
+                    <div class="form-group" style="display:flex;flex-direction:row;">
+                        <div class="image"><img src="../src/icons/linkedin-icon.png"></div>
+                        <label style="margin-right:30px;" class="title_icon">Linkedin</label>
+                        <input id="linkedin_link" name="linkedin_link" required value="<?= htmlspecialchars($linkedin_link) ?>">
+                    </div>
+
+                    <div class="form-group" style="display:flex;flex-direction:row;">
+                        <div class="image"><img src="../src/icons/youtube-icon.png"></div>
+                        <label style="margin-right:33px;" class="title_icon">Youtube</label>
+                        <input id="youtube_link" name="youtube_link" required value="<?= htmlspecialchars($youtube_link) ?>">
+                    </div>
+
+                    <div class="form-group" style="display:flex;flex-direction:row;">
+                        <div class="image"><img src="../src/icons/instagram-icon.png"></div>
+                        <label class="title_icon">Instagram</label>
+                        <input id="instagram_link" name="instagram_link" required value="<?= htmlspecialchars($instagram_link) ?>">
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="submit" class="btn-enregistre">
+                            Enregistrer la description
+                        </button>
+                    </div>
+                </form>
+                
             </div>
         </div>
     </div>
@@ -322,6 +374,22 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
 
     //modifier affiche 
+    function openEditModalFromRow(link){
+    openEditModal(
+        link.dataset.id,
+        link.dataset.description,
+        link.dataset.presentation,
+        link.dataset.creation,
+        link.dataset.enquete,
+        link.dataset.publication,
+        link.dataset.donnereg,
+        link.dataset.rapport,
+        link.dataset.image,
+        link.dataset.contact,
+        link.dataset.site,
+        link.dataset.gps
+    );
+}
     function openEditModal(id,description_hcp,presentation_hcp,creation_hcp,enquete_link,publication_link,donne_reg_link,rapp_hcp_link,imageSrc,contact_hcp_link,site_link,gps_link){
         document.getElementById("id").value = id;
         document.getElementById("description_hcp").value = description_hcp;

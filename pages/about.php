@@ -1,3 +1,30 @@
+<?php
+include "dbconnect.php";
+
+$current = basename($_SERVER['PHP_SELF']);
+
+$sql = $pdo->query("SELECT id,description,title FROM hcp_des ORDER BY id DESC");
+$users = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+$description= $pdo->query("Select description from hcp_des where id=0")->fetchColumn();
+$title = $pdo->query("Select title from hcp_des where id=0")->fetchColumn();
+
+//reseaux sociaux 
+$sql = $pdo->query("SELECT id,facebook_link,x_link,linkedin_link,youtube_link,instagram_link from reseaux_link ORDER BY id DESC");
+$facebook_link = $pdo->query("Select facebook_link from reseaux_link where id=0")->fetchColumn();
+$x_link = $pdo->query("Select x_link from reseaux_link where id=0")->fetchColumn();
+$linkedin_link = $pdo->query("Select linkedin_link from reseaux_link where id=0")->fetchColumn();
+$youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")->fetchColumn();
+$instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
+
+//gestion_donne_economique 
+$sql = $pdo->query("SELECT ID_eco,PIB,Population,PIB_dp,Inflation from gestion_donne_economique");
+$PIB = $pdo->query("Select PIB from gestion_donne_economique where ID_eco=0")->fetchColumn();
+$Population = $pdo->query("Select Population from gestion_donne_economique where ID_eco=0")->fetchColumn();
+$PIB_dp = $pdo->query("Select PIB_dp from gestion_donne_economique where ID_eco=0")->fetchColumn();
+$Inflation = $pdo->query("Select Inflation from gestion_donne_economique where ID_eco=0")->fetchColumn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +46,7 @@
             <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <a href="about.php" class="<?php echo ($current == 'about.php') ? 'active' : ''; ?>" onclick="changeActive(this)">À propos</a>
             <a href="institutions.php" class="<?php echo ($current == 'institutions.php') ? 'active' : ''; ?>" onclick="changeActive(this)">institutions</a>
-            <a href="#" onclick="changeActive(this)">Enquêtes</a>
+            <a href="enquete_hcp.php" class="<?php echo ($current == 'enquete_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)">Enquêtes</a>
             <a href="#" onclick="changeActive(this)">Statistiques</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
             <button onclick="window.location.href='login.php'">Login</button>
@@ -41,7 +68,7 @@
         <div class="card-people">
             <div class="image-icon"><img src="../src/icons/societe.png"></div>
             <div class="card-content">
-                <h1 class="title">1 279</h1>
+                <h1 class="title"><?= $PIB ?></h1>
                 <p class="description">milliers MAD<br>PIB réel (2026)</p>
                 <p class="details">Le PIB du Maroc en 2026</p>
             </div>
@@ -50,7 +77,7 @@
         <div class="card-statique">
             <div class="image-icon"><img src="../src/icons/statique.png"></div>
             <div class="card-content">
-                <h1 class="title">36,8</h1>
+                <h1 class="title"><?= $Population ?></h1>
                 <p class="description">millions<br>Population (2026)</p>
                 <p class="details">La population du Royaume</p>
             </div>
@@ -58,7 +85,7 @@
         <div class="card-pib">
             <div class="image-icon"><img src="../src/icons/pourcentage.png"></div>
             <div class="card-content">
-                <h1 class="title">13,6 %</h1>
+                <h1 class="title"><?= $PIB_dp ?> %</h1>
                 <p class="description">du PIB<br>Dépenses publiques (2026)</p>
                 <p class="details-pourcentage">Poids des dépenses publiques</p>
             </div>
@@ -67,7 +94,7 @@
             <div class="reseau">
                 <div class="image-icon"><img src="../src/icons/augmentation.png"></div>
                 <div class="card-content">
-                    <h1 class="title">6,1 %</h1>
+                    <h1 class="title"><?= $Inflation ?> %</h1>
                     <p class="description">Inflation (2026)</p>
                     <p class="details-inflation">Taux d'inflation annuel</p>
                 </div>                
@@ -144,23 +171,25 @@
 
 
 
-    <div class="bar-bas">
-        <div class="reseau">
-            <p>Rejoignez-nous sur :</p>
-            <nav class="logo-media">
-                <a href="https://www.youtube.com/user/marochcp"><img src="../src/icons/youtube-icon1.png"></a>
-                <a href="https://web.facebook.com/HCPMaroc/?_rdc=1&_rdr#"><img src="../src/icons/facebook-icon1.png"></a>
-                <a href="https://www.instagram.com/hcp.maroc/"><img src="../src/icons/instagram-icon1.png"></a>
-                <a href="http://twitter.com/@hcpmaroc"><img src="../src/icons/twitter-icon1.png"></a>
-                <a href="https://www.linkedin.com/company/hcp-maroc"><img src="../src/icons/linkedin-icon1.png"></a>
-            </nav>
+    <div class="bottom">
+        <div class="bar-bas">
+            <div class="reseau">
+                <p>Rejoignez-nous sur :</p>
+                <nav class="logo-media">
+                    <a href="<?= $youtube_link ?>"><img src="../src/icons/youtube-icon1.png"></a>
+                    <a href="<?= $facebook_link ?>"><img src="../src/icons/facebook-icon1.png"></a>
+                    <a href="<?= $instagram_link ?>"><img src="../src/icons/instagram-icon1.png"></a>
+                    <a href="<?= $x_link ?>"><img src="../src/icons/twitter-icon1.png"></a>
+                    <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
+                </nav>
+            </div>
+            <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
         </div>
-        <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
-    </div>
-    <div class="copy-right">
-        <p>Haut-Commissariat au Plan du Maroc © 2026<br>
-        Centre National de Documentation<br>
-        En poursuivant votre navigation, vous acceptez l'utilisation de cookies, afin de réaliser des statistiques d'audience.</p>
+        <div class="copy-right">
+            <p>Haut-Commissariat au Plan du Maroc © 2026<br>
+            Centre National de Documentation<br>
+            En poursuivant votre navigation, vous acceptez l'utilisation de cookies, afin de réaliser des statistiques d'audience.</p>
+        </div>
     </div>
     
 

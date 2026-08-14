@@ -37,22 +37,7 @@
     object-fit: cover;
 }
 /*breadcrumb*/
-.breadcrumb{
-    position: absolute;
-    margin-top:80px;margin-left:33px;
-    font-size: 18px;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: rgba(0, 0, 0, 0.5);
-    z-index: 10; 
-}
-.breadcrumb a{
-    text-decoration: none;
-    color:#5e1d3e; 
-}
-.breadcrumb .separator{
-    padding-left:10px;padding-right:6px;
-    color:#5e1d3e;
-}
+
 
 /*card hcp*/
 .cards-history{
@@ -132,4 +117,19 @@
 }
 .card-domain .card-domain-7 button,.card-domain .card-domain-8 button,.card-domain .card-domain-9 button,.card-domain .card-domain-10 button,.card-domain .card-domain-11 button,.card-domain .card-domain-12 button{
     margin-top:4px;
+}
+.breadcrumb{
+    margin-left: 33px;
+    font-size: 18px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+.breadcrumb a{
+    text-decoration: none;
+    color:#5e1d3e;
+}
+.breadcrumb .separator{
+    padding-left:10px;padding-right:6px;
+    color:#5e1d3e;
 }

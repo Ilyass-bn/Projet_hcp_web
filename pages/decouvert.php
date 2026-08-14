@@ -1,3 +1,37 @@
+<?php
+include "dbconnect.php";
+
+$current = basename($_SERVER['PHP_SELF']);
+
+//gestion_reseau 
+$sql = $pdo->query("SELECT ID_res,Direction_reg,Bureaux_prov,Donnees_coll from gestion_reseau");
+$Direction_reg = $pdo->query("Select Direction_reg from gestion_reseau where ID_res=0")->fetchColumn();
+$Bureaux_prov = $pdo->query("Select Bureaux_prov from gestion_reseau where ID_res=0")->fetchColumn();
+$Donnees_coll = $pdo->query("Select Donnees_coll from gestion_reseau where ID_res=0")->fetchColumn();
+
+?>
+
+<?php
+include "dbconnect.php";
+
+$current = basename($_SERVER['PHP_SELF']);
+
+$sql = $pdo->query("SELECT id,description,title FROM hcp_des ORDER BY id DESC");
+$users = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+$description= $pdo->query("Select description from hcp_des where id=0")->fetchColumn();
+$title = $pdo->query("Select title from hcp_des where id=0")->fetchColumn();
+
+//reseaux sociaux 
+$sql = $pdo->query("SELECT id,facebook_link,x_link,linkedin_link,youtube_link,instagram_link from reseaux_link ORDER BY id DESC");
+$facebook_link = $pdo->query("Select facebook_link from reseaux_link where id=0")->fetchColumn();
+$x_link = $pdo->query("Select x_link from reseaux_link where id=0")->fetchColumn();
+$linkedin_link = $pdo->query("Select linkedin_link from reseaux_link where id=0")->fetchColumn();
+$youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")->fetchColumn();
+$instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,15 +59,18 @@
             <a href="#" onclick="changeActive(this)">Statistiques</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
             <button onclick="window.location.href='login.php'">Login</button>
+            
         </nav>
     </div>
-    <span class="breadcrumb">
-        <a href="institutions.php">institutions</a><span class="separator">></span>
-        <a href="decouvert.php">Découvrir</a>
-    </span>    
+    <div class="lien">
+       <span class="breadcrumb">
+            <a href="institutions.php">institutions</a><span class="separator">></span>
+            <a href="decouvert.php">Découvrir</a>
+        </span>  
+    </div>
     <div class="home-body-contact">
-
         <div class="para1">
+            
             <p class="title">Le Haut-Commissariat <br>au Plan du Maroc à travers le Royaume</p>
             <h1 class="description">Le Haut-Commissariat au Plan dispose d'un 
                 réseau de directions régionales et provinciales réparties dans l'ensemble du Royaume. Elles 
@@ -49,21 +86,21 @@
         <div class="card-1">
             <div class="image-icon"><img src="../src/icons/gps.png"></div>
             <div class="card-content">
-                <h1 class="title">12</h1>
+                <h1 class="title"><?= $Direction_reg ?></h1>
                 <p class="description"><span>Directions Régionales</span></p>
             </div>
         </div>
         <div class="card-2">
             <div class="image-icon"><img src="../src/icons/societe.png"></div>
             <div class="card-content">
-                <h1 class="title">38</h1>
+                <h1 class="title"><?= $Bureaux_prov ?></h1>
                 <p class="description"><span>Bureaux Provinciaux</span></p>
             </div>
         </div>
         <div class="card-3">
             <div class="image-icon"><img src="../src/icons/augmentation.png"></div>
             <div class="card-content">
-                <h1 class="title">100+</h1>
+                <h1 class="title"><?= $Donnees_coll ?></h1>
                 <p class="description"><span class="donne">Données collectées</span></p>
             </div>
         </div>
@@ -221,23 +258,25 @@
 
 
 
-    <div class="bar-bas">
-        <div class="reseau">
-            <p>Rejoignez-nous sur :</p>
-            <nav class="logo-media">
-                <a href="https://www.youtube.com/user/marochcp"><img src="../src/icons/youtube-icon1.png"></a>
-                <a href="https://web.facebook.com/HCPMaroc/?_rdc=1&_rdr#"><img src="../src/icons/facebook-icon1.png"></a>
-                <a href="https://www.instagram.com/hcp.maroc/"><img src="../src/icons/instagram-icon1.png"></a>
-                <a href="http://twitter.com/@hcpmaroc"><img src="../src/icons/twitter-icon1.png"></a>
-                <a href="https://www.linkedin.com/company/hcp-maroc"><img src="../src/icons/linkedin-icon1.png"></a>
-            </nav>
+    <div class="bottom">
+        <div class="bar-bas">
+            <div class="reseau">
+                <p>Rejoignez-nous sur :</p>
+                <nav class="logo-media">
+                    <a href="<?= $youtube_link ?>"><img src="../src/icons/youtube-icon1.png"></a>
+                    <a href="<?= $facebook_link ?>"><img src="../src/icons/facebook-icon1.png"></a>
+                    <a href="<?= $instagram_link ?>"><img src="../src/icons/instagram-icon1.png"></a>
+                    <a href="<?= $x_link ?>"><img src="../src/icons/twitter-icon1.png"></a>
+                    <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
+                </nav>
+            </div>
+            <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
         </div>
-        <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
-    </div>
-    <div class="copy-right">
-        <p>Haut-Commissariat au Plan du Maroc © 2026<br>
-        Centre National de Documentation<br>
-        En poursuivant votre navigation, vous acceptez l'utilisation de cookies, afin de réaliser des statistiques d'audience.</p>
+        <div class="copy-right">
+            <p>Haut-Commissariat au Plan du Maroc © 2026<br>
+            Centre National de Documentation<br>
+            En poursuivant votre navigation, vous acceptez l'utilisation de cookies, afin de réaliser des statistiques d'audience.</p>
+        </div>
     </div>
     
 
