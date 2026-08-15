@@ -3,6 +3,7 @@ include "../../dbconnect.php";
 
 $id = $_POST['id'];
 $description_hcp = $_POST['description_hcp'];
+$Zone = $_POST['Zone'];
 $presentation_hcp = $_POST['presentation_hcp'];
 $creation_hcp = $_POST['creation_hcp'];
 $enquete_link = $_POST['enquete_link'];
@@ -27,6 +28,7 @@ if(isset($_FILES['Image_hcp']) && $_FILES['Image_hcp']['error'] === UPLOAD_ERR_O
 
 $fields = [
     "description_hcp" => $description_hcp,
+    "Zone"=>$Zone,
     "presentation_hcp" => $presentation_hcp,
     "creation_hcp" => $creation_hcp,
     "enquete_link" => $enquete_link,

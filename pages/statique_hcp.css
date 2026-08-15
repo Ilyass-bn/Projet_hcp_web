@@ -1,0 +1,61 @@
+.card .description {
+    width: 100%;
+    height: 35px;
+    overflow: hidden;
+}
+
+.card .description p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;        /* <-- ajoute cette ligne */
+    overflow-wrap: break-word;    /* <-- et celle-ci */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+/*les categories color */
+/*les categorie */
+.status-autres{
+    color:rgb(92, 92, 92);
+    background-color: rgba(157, 157, 156, 0.239);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(92, 92, 92);
+}
+.status-economie{
+    color:rgb(201, 136, 14);
+    background-color: rgba(238, 186, 90, 0.313);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(201, 136, 14);
+}
+.status-travail{
+    color:rgba(30, 138, 76);
+    background-color: rgba(48, 169, 100, 0.152);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px 
+    solid rgba(30, 138, 76);
+}
+.status-dev{
+    color:rgba(214, 41, 40);
+    background-color: rgba(209, 74, 74, 0.215);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgba(214, 41, 40);
+}
+.status-condition{
+    color:rgba(232, 183, 29);
+    background-color: rgba(229, 202, 112, 0.23);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgba(232, 183, 29);
+}
+.status-pop{
+    color:rgb(0, 8, 245);
+    background-color: rgba(105, 109, 219, 0.146);
+    padding:4px 15px;
+    border-radius: 5px;
+    border:1px solid rgb(0, 8, 245);
+}

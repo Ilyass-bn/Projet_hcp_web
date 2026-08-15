@@ -100,8 +100,9 @@ $total_pages = ceil($total / $par_page);
             <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <a href="about.php" class="<?php echo ($current == 'about.php') ? 'active' : ''; ?>" onclick="changeActive(this)">À propos</a>
             <a href="institutions.php" class="<?php echo ($current == 'institutions.php') ? 'active' : ''; ?>" onclick="changeActive(this)">institutions</a>
+            <a href="publication_hcp.php" class="<?php echo ($current == 'publication_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Publications</a>
             <a href="enquete_hcp.php" class="<?php echo ($current == 'enquete_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)">Enquêtes</a>
-            <a href="#" onclick="changeActive(this)">Statistiques</a>
+            <a href="statique_hcp.php" class="<?php echo ($current == 'statique_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Statistiques</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
             <button onclick="window.location.href='login.php'">Login</button>
         </nav>
@@ -128,16 +129,15 @@ $total_pages = ceil($total / $par_page);
 
         <div class="card">
             <img src="data:image/jpeg;base64,<?= base64_encode($enquete['Image_enquete']) ?>">
-            <span class="status">En cours</span>
+            <span class="status">Hcp <?= $enquete['Direction'] ?></span>
             <h3><?= $enquete['Titre'] ?></h3>
             <p>
                 Fournir des indicateurs conjoncturels sur l'emploi.
             </p>
 
             <div class="details">
-                <span><?= $enquete['Type'] ?></span>
-                <span><?= $enquete['Direction'] ?></span>
-                <span><?= $enquete['date_fin'] ?></span>
+                <span style="color:white;background-color: #5e1d3e;;padding:4px 15px;border-radius: 5px;border:1px solid #5e1d3e;"><?= $enquete['Type'] ?></span>
+                <span style="color:rgb(51, 51, 51);background-color: rgba(202, 202, 202, 0.04);padding:4px 15px;border-radius: 5px;border:1px solid rgb(92, 92, 92);"><?= $enquete['date_fin'] ?></span>
             </div>
 
             <div class="buttons">
@@ -190,32 +190,6 @@ $total_pages = ceil($total / $par_page);
         const links = document.querySelectorAll('.bar-haut nav a');
         links.forEach(link => { link.classList.remove('active') });
         element.classList.add('active');
-    }
-
-    //search
-    function filterUsers() {
-        const input = document.getElementById("searchInput").value.toLowerCase().trim();
-        const calendrier = document.getElementById("searchcalendrier").value;
-
-        rows.forEach(row => {
-            const ID = row.children[0]?.textContent.toLowerCase() || "";
-            const Titre = row.children[2]?.textContent.toLowerCase() || "";
-            const Type = row.children[3]?.textContent.toLowerCase() || "";
-            const Direction = row.children[4]?.textContent.trim() || "";
-            const Statut = row.children[5]?.textContent.trim() || "";
-            const calendrier_1 = row.children[6]?.textContent.trim() || "";
-            const calendrier_2 = row.children[7]?.textContent.trim() || "";
-
-            const matchesText = ID.includes(input) || Titre.includes(input) || Direction.includes(input) || Type.includes(input);
-            const matchesStatus = !statusFilter || Statut === statusFilter;
-            const matchescalendrier = !calendrier || calendrier_1===calendrier || calendrier_2===calendrier;
-
-            if (matchesText && matchesStatus && matchescalendrier) {
-                row.style.display = "";
-            } else {
-                row.style.display = "none";
-            }
-    });
     }
 
 </script>

@@ -3,7 +3,7 @@ include "dbconnect.php";
 
 $current = basename($_SERVER['PHP_SELF']);
 
-$sql = $pdo->query("SELECT id,ID_hcp,description_hcp,presentation_hcp,creation_hcp,Image_hcp,enquete_link,publication_link,donne_reg_link,rapp_hcp_link,contact_hcp_link,gps_link,site_link FROM gestion_hcp ORDER BY id DESC");
+$sql = $pdo->query("SELECT id,ID_hcp,description_hcp,presentation_hcp,creation_hcp,Image_hcp,enquete_link,publication_link,donne_reg_link,rapp_hcp_link,contact_hcp_link,gps_link,site_link,Zone FROM gestion_hcp ORDER BY id DESC");
 $users = $sql->fetchAll(PDO::FETCH_ASSOC);
 $totalenquete = $pdo->query("Select count(*) from enquete")->fetchColumn();
 
@@ -54,12 +54,12 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
 
 <!--modifier affiche-->
-<div id="editModal_hcp" class="modal">
+<div id="editModal_hcp" class="modal" style="padding-top:30px;">
     <div class="modal-content modal-edit">
 
         <h2>Modifier les informations HCP</h2>
 
-        <form action="utilisateurs_actions/contenu/modifier_contenu.php" method="POST" enctype="multipart/form-data">
+        <form action="utilisateurs_actions/contenu/modifier_contenu.php" method="POST" enctype="multipart/form-data" style="height:846px;">
 
             <input type="hidden" id="id" name="id">
 
@@ -79,6 +79,11 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <input type="file" id="Image_hcp" name="Image_hcp" accept="image/*" onchange="previewImage(event)">
             </div>
 
+            <div class="form-group">
+                <label>Zone</label>
+                <input type="text" id="Zone" name="Zone" required>
+            </div>
+            
             <div class="form-group">
                 <label>Date de creation</label>
                 <input type="text" id="creation_hcp" name="creation_hcp" required>
@@ -198,6 +203,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                         <tr>
                             <th>ID Hcp</th>
                             <th>Image</th>
+                            <th>Zone</th>
                             <th>Description</th>
                             <th>Presentation_hcp</th>
                             <th>Date de creation</th>
@@ -223,6 +229,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                         <?php else: ?>
                                         <span>—</span>
                                         <?php endif; ?>
+                                    <td style="max-width:220px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['Zone']) ?></td>
                                     </td>
                                     <td style="max-width:380px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description_hcp']) ?></td>
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['presentation_hcp']) ?></td>
@@ -235,7 +242,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['gps_link']) ?></td>
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['site_link']) ?></td>
                                     <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" data-id="<?= htmlspecialchars($user['id']) ?>" data-description="<?= htmlspecialchars($user['description_hcp'] ?? '') ?>" data-presentation="<?= htmlspecialchars($user['presentation_hcp'] ?? '') ?>" data-creation="<?= htmlspecialchars($user['creation_hcp'] ?? '') ?>" data-enquete="<?= htmlspecialchars($user['enquete_link'] ?? '') ?>" data-publication="<?= htmlspecialchars($user['publication_link'] ?? '') ?>" data-donnereg="<?= htmlspecialchars($user['donne_reg_link'] ?? '') ?>" data-rapport="<?= htmlspecialchars($user['rapp_hcp_link'] ?? '') ?>" data-image="<?= !empty($user['Image_hcp']) ? 'data:image/png;base64,'.base64_encode($user['Image_hcp']) : '' ?>" data-contact="<?= htmlspecialchars($user['contact_hcp_link'] ?? '') ?>" data-site="<?= htmlspecialchars($user['site_link'] ?? '') ?>" data-gps="<?= htmlspecialchars($user['gps_link'] ?? '') ?>" onclick="openEditModalFromRow(this); return false;"><img src="../src/icons/edit-icon.png" alt="Modifier"></a>
+                                        <a href="#" class="btn-modifier" data-id="<?= htmlspecialchars($user['id']) ?>" data-zone="<?= htmlspecialchars($user['Zone']) ?>" data-description="<?= htmlspecialchars($user['description_hcp'] ?? '') ?>" data-presentation="<?= htmlspecialchars($user['presentation_hcp'] ?? '') ?>" data-creation="<?= htmlspecialchars($user['creation_hcp'] ?? '') ?>" data-enquete="<?= htmlspecialchars($user['enquete_link'] ?? '') ?>" data-publication="<?= htmlspecialchars($user['publication_link'] ?? '') ?>" data-donnereg="<?= htmlspecialchars($user['donne_reg_link'] ?? '') ?>" data-rapport="<?= htmlspecialchars($user['rapp_hcp_link'] ?? '') ?>" data-image="<?= !empty($user['Image_hcp']) ? 'data:image/png;base64,'.base64_encode($user['Image_hcp']) : '' ?>" data-contact="<?= htmlspecialchars($user['contact_hcp_link'] ?? '') ?>" data-site="<?= htmlspecialchars($user['site_link'] ?? '') ?>" data-gps="<?= htmlspecialchars($user['gps_link'] ?? '') ?>" onclick="openEditModalFromRow(this); return false;"><img src="../src/icons/edit-icon.png" alt="Modifier"></a>
                                     </td>
                                 </tr>
                 
@@ -377,6 +384,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     function openEditModalFromRow(link){
     openEditModal(
         link.dataset.id,
+        link.dataset.zone,
         link.dataset.description,
         link.dataset.presentation,
         link.dataset.creation,
@@ -390,9 +398,10 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
         link.dataset.gps
     );
 }
-    function openEditModal(id,description_hcp,presentation_hcp,creation_hcp,enquete_link,publication_link,donne_reg_link,rapp_hcp_link,imageSrc,contact_hcp_link,site_link,gps_link){
+    function openEditModal(id,Zone,description_hcp,presentation_hcp,creation_hcp,enquete_link,publication_link,donne_reg_link,rapp_hcp_link,imageSrc,contact_hcp_link,site_link,gps_link){
         document.getElementById("id").value = id;
         document.getElementById("description_hcp").value = description_hcp;
+        document.getElementById("Zone").value = Zone;
         document.getElementById("presentation_hcp").value = presentation_hcp;
         document.getElementById("creation_hcp").value = creation_hcp;
         document.getElementById("enquete_link").value = enquete_link;
@@ -439,18 +448,19 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
         rows.forEach(row => {
             const ID_hcp = row.children[0]?.textContent.toLowerCase() || "";
-            const description_hcp = row.children[2]?.textContent.toLowerCase() || "";
-            const presentation_hcp = row.children[3]?.textContent.toLowerCase() || "";
-            const creation_hcp = row.children[4]?.textContent.trim() || "";
-            const enquete_link = row.children[5]?.textContent.trim() || "";
-            const publication_link = row.children[6]?.textContent.trim() || "";
-            const donne_reg_link = row.children[7]?.textContent.trim() || "";
-            const rapp_hcp_link = row.children[8]?.textContent.trim() || "";
-            const contact_hcp_link = row.children[9]?.textContent.trim() || "";
-            const gps_link = row.children[10]?.textContent.trim() || "";
-            const site_link = row.children[11]?.textContent.trim() || "";
+            const Zone = row.children[2]?.textContent.toLowerCase() || "";
+            const description_hcp = row.children[3]?.textContent.toLowerCase() || "";
+            const presentation_hcp = row.children[4]?.textContent.toLowerCase() || "";
+            const creation_hcp = row.children[5]?.textContent.trim() || "";
+            const enquete_link = row.children[6]?.textContent.trim() || "";
+            const publication_link = row.children[7]?.textContent.trim() || "";
+            const donne_reg_link = row.children[8]?.textContent.trim() || "";
+            const rapp_hcp_link = row.children[9]?.textContent.trim() || "";
+            const contact_hcp_link = row.children[10]?.textContent.trim() || "";
+            const gps_link = row.children[11]?.textContent.trim() || "";
+            const site_link = row.children[12]?.textContent.trim() || "";
 
-            const matchesText = ID_hcp.includes(input) || description_hcp.includes(input) || presentation_hcp.includes(input) || creation_hcp.includes(input) || enquete_link.includes(input) || creation_hcp.includes(input) || publication_link.includes(input) || donne_reg_link.includes(input) || rapp_hcp_link.includes(input) || contact_hcp_link.includes(input) || gps_link.includes(input) || site_link.includes(input);
+            const matchesText = ID_hcp.includes(input) || description_hcp.includes(input) || presentation_hcp.includes(input) || creation_hcp.includes(input) || enquete_link.includes(input) || creation_hcp.includes(input) || publication_link.includes(input) || donne_reg_link.includes(input) || rapp_hcp_link.includes(input) || contact_hcp_link.includes(input) || gps_link.includes(input) || site_link.includes(input) || Zone.includes(input);
 
             if (matchesText){
                 row.style.display = "";

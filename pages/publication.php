@@ -308,7 +308,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <p>Gérez les publications et documents officiels du HCP</p>
             </div>
             <div class="buttons">
-                <button class="btn-add" onclick="openAddModal()">Créer une enquête</button>
+                <button class="btn-add" onclick="openAddModal()">Créer une publication</button>
                 <button class="btn-exp" onclick="window.location.href='utilisateurs_actions/publication/exporter_publication.php'">Exporter</button>
             </div>
         </div>
@@ -325,7 +325,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/rapport-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalrapp ?></h2>
-                    <p class="card-det"><b>Rapports et études</b><br><span><?= ($totalrapp/$totalpub)*100 ?>% du total</span></p>
+                    <span><?= $totalpub > 0 ? round(($totalrapp / $totalpub) * 100, 1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -333,7 +333,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/analyse-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalnot ?></h2>
-                    <p class="card-det"><b>Notes et analyses</b><br><span><?= ($totalnot/$totalpub)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Notes et analyses</b><br><span><?= $totalpub > 0 ? round(($totalnot/$totalpub)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -341,7 +341,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/revu-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalautre ?></h2>
-                    <p class="card-det"><b>Bulletins et revues</b><br><span><?= ($totalautre/$totalpub)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Bulletins et revues</b><br><span><?= $totalpub > 0 ? round(($totalautre/$totalpub)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -349,7 +349,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/bruillet-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalbull ?></h2>
-                    <p class="card-det"><b>Autres documents</b><br><span><?= ($totalbull/$totalpub)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Autres documents</b><br><span><?= $totalpub > 0 ? round(($totalbull/$totalpub)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -402,7 +402,17 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                     <tbody id="usersTableBody">
                         <?php if(count($users)>0): ?>
                         <?php foreach($users as $user): ?>    
-                                <tr>
+                                <tr
+                                    data-id="<?= htmlspecialchars($user['id']) ?>"
+                                    data-idpub="<?= htmlspecialchars($user['ID_pub']) ?>"
+                                    data-titre="<?= htmlspecialchars($user['Titre_pub']) ?>"
+                                    data-image="<?= !empty($user['Images']) ? 'data:image/png;base64,'.base64_encode($user['Images']) : '' ?>"
+                                    data-categorie="<?= htmlspecialchars($user['Categorie']) ?>"
+                                    data-statut="<?= htmlspecialchars($user['Statut']) ?>"
+                                    data-date="<?= htmlspecialchars($user['date_pub']) ?>"
+                                    data-description="<?= htmlspecialchars($user['description']) ?>"
+                                    data-link="<?= htmlspecialchars($user['link_pub']) ?>"
+                                >
                                     <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_pub']) ?></td>
                                     <td class="td-image">
                                         <?php if(!empty($user['Images'])): ?>
@@ -414,7 +424,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                     </td>
                                     <td><?= htmlspecialchars($user['Titre_pub']) ?></td>
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description']) ?></td>
-                                    <td>
+                                    <td style="max-width:300px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
                                         <?php if($user['Categorie']=="Rapports et études"): ?>
                                             <span class="status-termine">Rapports et études</span>
                                         <?php elseif($user['Categorie']=="Notes et analyses"): ?>
@@ -443,11 +453,11 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                         </a>
                                     </td>
                                     <td><?= htmlspecialchars($user['nbre_tel']) ?></td>
-                                    <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre_pub'], ENT_QUOTES) ?>','<?= !empty($user['Images']) ? "data:image/png;base64,".base64_encode($user['Images']) : "" ?>','<?= htmlspecialchars($user['Categorie'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Statut'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['date_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars(str_replace(["\r\n","\n","\r"], ' ', $user['description']), ENT_QUOTES) ?>','<?= htmlspecialchars($user['link_pub'], ENT_QUOTES) ?>'); return false;">
+                                    <td class="actions-cell" style="max-width:740px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModalFromRow(this); return false;">
                                             <img src="../src/icons/edit-icon.png" alt="Modifier">
                                         </a>
-                                        <a href="utilisateurs_actions/publication/supprimer_pub.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
+                                        <a href="utilisateurs_actions/publication/supprimer_pub.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;" style="margin-right:10px;">
                                             <img src="../src/icons/delete-icon.png" alt="Supprimer">
                                         </a>
                                     </td>
@@ -565,6 +575,21 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     }
 
     //modifier affiche 
+
+    function openEditModalFromRow(link){
+    const row = link.closest("tr");
+    openEditModal(
+        row.dataset.id,
+        row.dataset.idpub,
+        row.dataset.titre,
+        row.dataset.image,
+        row.dataset.categorie,
+        row.dataset.statut,
+        row.dataset.date,
+        row.dataset.description,
+        row.dataset.link
+    );
+    }
     function openEditModal(id,ID_pub,Titre_pub,Image_pub,Categorie,Statut,date_pub,description,link_pub){
         document.getElementById("id").value = id;
         document.getElementById("ID_pub").value = ID_pub;

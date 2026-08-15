@@ -1,21 +1,20 @@
 <?php
-$json = file_get_contents('json/villes.json');
-$regions = json_decode($json, true);
+include "dbconnect.php";
 
 $id = $_GET['id'] ?? null;
 
-$region = null;
-foreach ($regions as $r) {
-    if ($r['id'] === $id) {
-        $region = $r;
-        break;
-    }
+if (!$id) {
+    die("Région non trouvée.");
 }
+
+$stmt = $pdo->prepare("SELECT * FROM gestion_donn_dem WHERE ID_hcp = :id");
+$stmt->bindValue(':id', $id, PDO::PARAM_STR);
+$stmt->execute();
+$region = $stmt->fetch(PDO::FETCH_ASSOC);
+
 if (!$region) {
     die("Région non trouvée.");
 }
-include "dbconnect.php";
-
 $current = basename($_SERVER['PHP_SELF']);
 
 //gestion_donn_dem 
@@ -64,7 +63,7 @@ $Taux_emploi = $stmt->fetchColumn();
 
 
 //gestion_hcp  
-$sql = $pdo->query("SELECT ID_hcp,description_hcp,presentation_hcp,creation_hcp,Image_hcp,enquete_link,donne_reg_link,rapp_hcp_link,contact_hcp_link,gps_link,site_link,publication_link FROM gestion_hcp");
+$sql = $pdo->query("SELECT ID_hcp,description_hcp,presentation_hcp,creation_hcp,Image_hcp,enquete_link,donne_reg_link,rapp_hcp_link,contact_hcp_link,gps_link,site_link,publication_link,Zone FROM gestion_hcp");
 
 $stmt = $pdo->prepare("Select description_hcp from gestion_hcp  where ID_hcp=?");
 $stmt->execute([$id]);
@@ -109,6 +108,10 @@ $publication_link = $stmt->fetchColumn();
 $stmt = $pdo->prepare("Select Image_hcp from gestion_hcp where ID_hcp=?");
 $stmt->execute([$id]);
 $Image_hcp = $stmt->fetchColumn();
+
+$stmt = $pdo->prepare("Select Zone from gestion_hcp where ID_hcp=?");
+$stmt->execute([$id]);
+$Zone = $stmt->fetchColumn();
 
 ?>
 
@@ -155,8 +158,9 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <a href="about.php" class="<?php echo ($current == 'about.php') ? 'active' : ''; ?>" onclick="changeActive(this)">À propos</a>
             <a href="institutions.php" class="<?php echo ($current == 'institutions.php') ? 'active' : ''; ?>" onclick="changeActive(this)">institutions</a>
-            <a href="#" onclick="changeActive(this)">Enquêtes</a>
-            <a href="#" onclick="changeActive(this)">Statistiques</a>
+            <a href="publication_hcp.php" class="<?php echo ($current == 'publication_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Publications</a>
+            <a href="enquete_hcp.php" class="<?php echo ($current == 'enquete_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)">Enquêtes</a>
+            <a href="statique_hcp.php" class="<?php echo ($current == 'statique_hcp.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Statistiques</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
             <button onclick="window.location.href='login.php'">Login</button>
         </nav>
@@ -221,7 +225,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <div class="info-texte">
                 <div class="ligne-info">
                     <span class="info">Zone d'intervention :</span>
-                    <span class="info-det"><?php echo htmlspecialchars($region['Zone']); ?></span>
+                    <span class="info-det"><?php echo htmlspecialchars($Zone); ?></span>
                 </div>
                 <div class="ligne-info">
                     <span class="info">Créée en : </span>
