@@ -108,7 +108,7 @@ $total_pages = ceil($total / $par_page);
         </nav>
     </div>
 
-<div class="enquetes-container">
+<div class="enquetes-container" style="background-color:rgba(255, 255, 255, 0.5);padding:50px;border-radius:10px;">
 
     <div class="header">
         <h1>Nos enquêtes</h1>
@@ -129,11 +129,8 @@ $total_pages = ceil($total / $par_page);
 
         <div class="card">
             <img src="data:image/jpeg;base64,<?= base64_encode($enquete['Image_enquete']) ?>">
-            <span class="status">Hcp <?= $enquete['Direction'] ?></span>
+            <span class="status">Direction <?= $enquete['Direction'] ?></span>
             <h3><?= $enquete['Titre'] ?></h3>
-            <p>
-                Fournir des indicateurs conjoncturels sur l'emploi.
-            </p>
 
             <div class="details">
                 <span style="color:white;background-color: #5e1d3e;;padding:4px 15px;border-radius: 5px;border:1px solid #5e1d3e;"><?= $enquete['Type'] ?></span>
@@ -142,7 +139,11 @@ $total_pages = ceil($total / $par_page);
 
             <div class="buttons">
                 <a href="#">Voir détails</a>
-                <a href="../<?= $enquete['link'] ?>" download="<?= $enquete['link'] ?>">Télécharger</a>
+                 <?php if(!empty($enquete['link'])): ?>
+                    <a href="../<?= $enquete['link'] ?>" download="<?= $enquete['link'] ?>">Télécharger</a>
+                <?php else: ?>
+                    <a href="#" class="disabled" onclick="return false;">Télécharger</a>
+                <?php endif; ?>
             </div>
         </div>
         <?php } ?>
@@ -161,6 +162,11 @@ $total_pages = ceil($total / $par_page);
     </div>
 </div>
 
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>                
     
     <div class="bottom">
         <div class="bar-bas">

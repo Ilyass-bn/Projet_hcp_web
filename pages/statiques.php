@@ -146,9 +146,8 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             </div>
 
             <div class="form-group">
-                <label>Fichier / Document (PDF, etc.)</label>
                 <span id="current_file_name"></span>
-                <input type="file" id="link_files" name="link_files">
+                <input style="width:150px;" type="file" id="link_files" name="link_files">
             </div>
             
 
@@ -456,19 +455,18 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     <div class="bar-haut" id="sidebar">
         <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
         <nav>
-            <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
+            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
             <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
             <a href="contenu_site.php" class="<?php echo ($current == 'contenu_site.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <a href="#" onclick="changeActive(this)">Support</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
-            <button class="btn-site" onclick="window.location.href='login.php'">Voir le site</button>
+            <button class="btn-site" onclick="window.location.href='home.php'">Voir le site</button>
             <button class="btn-deconnextion" onclick="window.location.href='login.php'">Déconnexion</button>
         </nav>
     </div>
@@ -507,7 +505,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/economic-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totaleco ?></h2>
-                    <p class="card-det"><b>Economie</b><br><span><?= ($totaleco/$totalstat)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Economie</b><br><span><?= $totalstat > 0 ? round(($totaleco/$totalstat)*100,2) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -515,7 +513,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/marche-travail-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totaltrav ?></h2>
-                    <p class="card-det"><b>Marché du travail</b><br><span><?= ($totaltrav/$totalstat)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Marché du travail</b><br><span><?= $totalstat > 0 ? round(($totaltrav/$totalstat)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -523,7 +521,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/dev-durable-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totaldev ?></h2>
-                    <p class="card-det"><b>Développement durable</b><br><span><?= ($totaldev/$totalstat)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Développement durable</b><br><span><?= $totalstat > 0 ? round(($totaldev/$totalstat)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -531,7 +529,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/condition-vie-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalrev ?></h2>
-                    <p class="card-det"><b>Revenu & conditions de vie</b><br><span><?= ($totalrev/$totalstat)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Revenu & conditions de vie</b><br><span><?= $totalstat > 0 ? round(($totalrev/$totalstat)*100,1) : 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -539,7 +537,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                 <div class="image-icon"><img src="../src/icons/autres-icon.png"></div>
                 <div class="paragraphe">
                     <h2><?= $totalautres ?></h2>
-                    <p class="card-det"><b>Autres statiques</b><br><span><?= ($totalautres/$totalstat)*100 ?>% du total</span></p>
+                    <p class="card-det"><b>Autres statiques</b><br><span><?= $totalstat > 0 ? round(($totalautres/$totalstat)*100,1): 0 ?>% du total</span></p>
                 </div>
                 
             </div>
@@ -610,7 +608,17 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                     <tbody id="usersTableBody">
                         <?php if(count($users)>0): ?>
                         <?php foreach($users as $user): ?>    
-                                <tr>
+                                <tr
+                                    data-id="<?= htmlspecialchars($user['id']) ?>"
+                                    data-idstat="<?= htmlspecialchars($user['ID_stat']) ?>"
+                                    data-titre="<?= htmlspecialchars($user['Titre_stat']) ?>"
+                                    data-image="<?= !empty($user['Image_stat']) ? 'data:image/png;base64,'.base64_encode($user['Image_stat']) : '' ?>"
+                                    data-categorie="<?= htmlspecialchars($user['Categorie_stat']) ?>"
+                                    data-statut="<?= htmlspecialchars($user['Statut_stat']) ?>"
+                                    data-date="<?= htmlspecialchars($user['date_stat_pub']) ?>"
+                                    data-description="<?= htmlspecialchars($user['description_stat']) ?>"
+                                    data-link="<?= htmlspecialchars($user['link_files']) ?>"
+                                >
                                     <td style="max-width:100px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_stat']) ?></td>
                                     <td class="td-image">
                                         <?php if(!empty($user['Image_stat'])): ?>
@@ -622,7 +630,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                     </td>
                                     <td><?= htmlspecialchars($user['Titre_stat']) ?></td>
                                     <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['description_stat']) ?></td>
-                                    <td>
+                                    <td style="max-width:300px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="link-cell">
                                         <?php if($user['Categorie_stat']=="Economie"): ?>
                                             <span class="status-economie">Economie</span>
                                         <?php elseif($user['Categorie_stat']=="Marché du travail"): ?>
@@ -655,11 +663,11 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                         </a>
                                     </td>
                                     <td><?= htmlspecialchars($user['nbre_stat']) ?></td>
-                                    <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre_stat'], ENT_QUOTES) ?>','<?= !empty($user['Image_stat']) ? "data:image/png;base64,".base64_encode($user['Image_stat']) : "" ?>','<?= htmlspecialchars($user['Categorie_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Statut_stat'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['date_stat_pub'], ENT_QUOTES) ?>','<?= htmlspecialchars(str_replace(["\r\n","\n","\r"], ' ', $user['description_stat']), ENT_QUOTES) ?>','<?= htmlspecialchars($user['link_files'], ENT_QUOTES) ?>'); return false;">
+                                    <td class="actions-cell" style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" class="link-cell">
+                                        <a href="#" class="btn-modifier" title="Modifier" onclick="openEditModalFromRow(this); return false;">
                                             <img src="../src/icons/edit-icon.png" alt="Modifier">
                                         </a>
-                                        <a href="utilisateurs_actions/statique/supprimer_stat.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;"> 
+                                        <a href="utilisateurs_actions/statique/supprimer_stat.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;" style="margin-right:10px;"> 
                                             <img src="../src/icons/delete-icon.png" alt="Supprimer">
                                         </a>
                                     </td>
@@ -931,17 +939,31 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
     function closeModal(){
         document.getElementById("deletestat").style.display="none";
-        deleteId = null;
+        deletestat = null;  
     }
 
     function deleteUser(){
-        if(deleteId!=null){
+        if(deletestat != null){   
             window.location.href =
             "utilisateurs_actions/statique/supprimer_stat.php?id="+deletestat;
         }
     }
 
  //modifier affiche 
+    function openEditModalFromRow(link){
+        const row = link.closest("tr");
+        openEditModal(
+        row.dataset.id,
+        row.dataset.idstat,
+        row.dataset.titre,
+        row.dataset.image,
+        row.dataset.categorie,
+        row.dataset.statut,
+        row.dataset.date,
+        row.dataset.description,
+        row.dataset.link
+    );
+    }
     function openEditModal(id,ID_stat,Titre_stat,Image_stat,Categorie_stat,Statut_stat,date_stat_pub,description_stat,link_files){
         document.getElementById("id").value = id;
         document.getElementById("ID_stat").value = ID_stat;
@@ -1102,7 +1124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         data: {
             labels: monthLabels,
             datasets: [{
-                label: "publications",
+                label: "Statiques",
                 data: monthlyData,
                 borderColor: "#6B123C",
                 backgroundColor: gradient,

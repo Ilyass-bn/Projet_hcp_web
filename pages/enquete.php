@@ -131,7 +131,6 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             </div>
 
             <div class="form-group">
-                <label>Fichier / Document (PDF, etc.)</label>
                 <span id="current_file_name"></span>
                 <input type="file" id="link_file" name="link_file">
             </div>
@@ -273,19 +272,18 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     <div class="bar-haut" id="sidebar">
         <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
         <nav>
-            <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
+            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
             <a href="statiques.php" class="<?php echo ($current == 'statiques.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/statique-admin.png" data-default="../src/icons/statique-admin.png" data-active="../src/icons/statique-admin-active.png">Statistiques</a>
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-actualite.png" data-default="../src/icons/icon-actualite.png" data-active="../src/icons/icon-actualite-active.png">Actualités</a>
             <a href="contenu_site.php" class="<?php echo ($current == 'contenu_site.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
             <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <a href="#" onclick="changeActive(this)">Support</a>
             <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
-            <button class="btn-site" onclick="window.location.href='login.php'">Voir le site</button>
+            <button class="btn-site" onclick="window.location.href='home.php'">Voir le site</button>
             <button class="btn-deconnextion" onclick="window.location.href='login.php'">Déconnexion</button>
         </nav>
     </div>
@@ -386,8 +384,19 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                     <tbody id="usersTableBody">
                         <?php if(count($users)>0): ?>
                         <?php foreach($users as $user): ?>    
-                                <tr>
-                                    <td><?= htmlspecialchars($user['ID_enquete']) ?></td>
+                                <tr
+                                    data-id="<?= htmlspecialchars($user['id']) ?>"
+                                    data-idenquete="<?= htmlspecialchars($user['ID_enquete']) ?>"
+                                    data-titre="<?= htmlspecialchars($user['Titre']) ?>"
+                                    data-type="<?= htmlspecialchars($user['Type']) ?>"
+                                    data-direction="<?= htmlspecialchars($user['Direction']) ?>"
+                                    data-datedebut="<?= htmlspecialchars($user['date_debut']) ?>"
+                                    data-datefin="<?= htmlspecialchars($user['date_fin']) ?>"
+                                    data-statut="<?= htmlspecialchars($user['Statut']) ?>"
+                                    data-image="<?= !empty($user['Image_enquete']) ? 'data:image/png;base64,'.base64_encode($user['Image_enquete']) : '' ?>"
+                                    data-link="<?= htmlspecialchars($user['link']) ?>"
+                                >
+                                    <td style="max-width:180px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['ID_enquete']) ?></td>
                                     <td class="td-image">
                                         <?php if(!empty($user['Image_enquete'])): ?>
                                             <img src="data:image/png;base64,<?= base64_encode($user['Image_enquete']) ?>" 
@@ -410,18 +419,18 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                                             <span class="status-br">-</span>
                                         <?php endif; ?>
                                     </td>
-                                    <td><?= htmlspecialchars($user['date_debut']) ?></td>
-                                    <td><?= htmlspecialchars($user['date_fin']) ?></td>
+                                    <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['date_debut']) ?></td>
+                                    <td style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"><?= htmlspecialchars($user['date_fin']) ?></td>
                                     <td class="link-cell">
                                         <a href="../<?= $user['link'] ?>" download="<?= $user['link'] ?>" class="btn-download" onclick="">
                                             <img src="../src/icons/download-icon.png" alt="Telecharger">
                                         </a>
                                     </td>
-                                    <td class="actions-cell">
-                                        <a href="#" class="btn-modifier" onclick="openEditModal('<?= $user['id'] ?>','<?= htmlspecialchars($user['ID_enquete'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Titre'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Type'], ENT_QUOTES) ?>','<?= htmlspecialchars($user['Direction'], ENT_QUOTES) ?>','<?= $user['date_debut'] ?>','<?= $user['date_fin'] ?>','<?= $user['Statut'] ?>','<?= !empty($user['Image_enquete']) ? "data:image/png;base64,".base64_encode($user['Image_enquete']) : "" ?>','<?= htmlspecialchars($user['link'], ENT_QUOTES) ?>'); return false;" title="Modifier">
+                                    <td class="actions-cell" style="max-width:200px;overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+                                        <a href="#" class="btn-modifier" onclick="openEditModalFromRow(this); return false;" title="Modifier">
                                             <img src="../src/icons/edit-icon.png" alt="Modifier">
                                         </a>
-                                        <a href="utilisateurs_actions/supprimer_enquete.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal(<?= $user['id'] ?>); return false;">
+                                        <a href="utilisateurs_actions/supprimer_enquete.php" class="btn-supprimer" title="Supprimer" onclick="openDeleteModal('<?= htmlspecialchars($user['id']) ?>'); return false;" style="margin-right:10px;">
                                             <img src="../src/icons/delete-icon.png" alt="Supprimer">
                                         </a>
                                     </td>
@@ -538,6 +547,23 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     }
 
     //modifier affiche 
+    function openEditModalFromRow(link){
+    const row = link.closest("tr");
+    openEditModal(
+        row.dataset.id,
+        row.dataset.idenquete,
+        row.dataset.titre,
+        row.dataset.type,
+        row.dataset.direction,
+        row.dataset.datedebut,
+        row.dataset.datefin,
+        row.dataset.statut,
+        row.dataset.image,
+        row.dataset.link
+    );
+    }
+
+
     function openEditModal(id,ID_enquete,Titre,Type,Direction,date_debut,date_fin,Statut,imageSrc,linkName){
         document.getElementById("id").value = id;
         document.getElementById("ID_enquete").value = ID_enquete;

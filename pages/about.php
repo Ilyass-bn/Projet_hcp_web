@@ -170,7 +170,11 @@ $Inflation = $pdo->query("Select Inflation from gestion_donne_economique where I
 
 
 
-
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>
 
     <div class="bottom">
         <div class="bar-bas">

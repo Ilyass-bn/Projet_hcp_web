@@ -40,3 +40,8 @@
     bottom:10%;
     width:100%;
 }
+.buttons a.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}

@@ -220,3 +220,24 @@ body{
 .bottom{
     margin-top: auto;
 }
+
+/*intelligence artificielle*/
+.btn-ai button{
+    position:fixed;
+    background-color: #5e1d3e;
+    border-radius: 50px;
+    width:60px;
+    height:60px;
+    border: none;
+    z-index: 1000;
+    right:2%;bottom:2%;
+    cursor:pointer;
+    transition: background-color 0.3s;
+}
+.btn-ai button:hover{
+    background-color:#6e254a;
+}
+.btn-ai button img {
+    width: 38px;
+    height: 38px;
+}

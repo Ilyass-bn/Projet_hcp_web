@@ -9,6 +9,6 @@ if(isset($_GET['id']))
     $stmt->execute([$id]);
 }
 
-header("Location: ../../statique.php");
+header("Location: ../../statiques.php");
 exit;
 ?>

@@ -257,6 +257,11 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
         </div>
     </div>    
 
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>
 
 
     <div class="bottom">

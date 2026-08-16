@@ -291,7 +291,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
         </div>
         <div class="card-ville-3">
             <h2>Localisation</h2>
-            <iframe src="<?= $gps_link ?>" width="260" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe src="<?= $gps_link ?>" width="260" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
     </div>
    
@@ -320,6 +320,11 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
     </div>
 
 
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>
 
     <div class="bar-bas">
         <div class="reseau">

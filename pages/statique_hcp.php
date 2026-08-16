@@ -131,7 +131,7 @@ function getCategorieClass($categorie) {
         </nav>
     </div>
 
-<div class="enquetes-container">
+<div class="enquetes-container" style="background-color:rgba(255, 255, 255, 0.5);padding:50px;border-radius:10px;">
 
     <div class="header">
         <h1>Nos Statistiques</h1>
@@ -173,7 +173,11 @@ function getCategorieClass($categorie) {
 
             <div class="buttons">
                 <a href="#">Voir détails</a>
-                <a href="../<?= $statique['link_files'] ?>" download="<?= $statique['link_files'] ?>">Télécharger</a>
+                <?php if(!empty($statique['link_files'])): ?>
+                    <a href="../<?= $statique['link_files'] ?>" download="<?= $statique['link_files'] ?>">Télécharger</a>
+                <?php else: ?>
+                    <a href="#" class="disabled" onclick="return false;">Télécharger</a>
+                <?php endif; ?>
             </div>
         </div>
         <?php } ?>
@@ -192,6 +196,11 @@ function getCategorieClass($categorie) {
     </div>
 </div>
 
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>
     
     <div class="bottom">
         <div class="bar-bas">

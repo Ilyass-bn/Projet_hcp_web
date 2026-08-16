@@ -50,13 +50,20 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <p class="title">Bienvenue au <span><?= $title ?></span></p>
             <h1 class="description"><?= $description ?></h1>
             <div class="buttons">
-                <button class="button-primary">Participer à<pre>un sondage</pre></button>
-                <button class="button-secondary">Afficher <pre>les statistiques</pre></button>
+                <button class="button-primary" onclick="window.location.href='publication_hcp.php'">Afficher <pre>les publications</pre></button>
+                <button class="button-secondary" onclick="window.location.href='statique_hcp.php'">Afficher <pre>les statistiques</pre></button>
             </div>
         </div>
         
         <div class="image-body"><img src="../src/img/home_img1.png"></div>
     </div>
+
+    <div class="btn-ai">
+        <button onclick="window.location.href='chat_ai.php'">
+            <img src="../src/icons/ai.png">
+        </button>
+    </div>
+
     <div class="bottom">
         <div class="bar-bas">
             <div class="reseau">
