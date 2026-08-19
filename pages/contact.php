@@ -17,6 +17,14 @@ $linkedin_link = $pdo->query("Select linkedin_link from reseaux_link where id=0"
 $youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")->fetchColumn();
 $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
 
+
+$sql = $pdo->query("SELECT id,site,email,telephone,logo_site,logo_home FROM setting ORDER BY id DESC");
+$setting = $sql->fetchAll(PDO::FETCH_ASSOC);
+$logo_site = $pdo->query("Select logo_site from setting where id=0")->fetchColumn();
+$logo_home = $pdo->query("Select logo_home from setting where id=0")->fetchColumn();
+$site = $pdo->query("Select site from setting where id=0")->fetchColumn();
+$telephone = $pdo->query("Select telephone from setting where id=0")->fetchColumn();
+$email = $pdo->query("Select email from setting where id=0")->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -29,12 +37,12 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title><?= $site ?></title>
 </head>
 <body>
     <?php $current = basename($_SERVER['PHP_SELF']); ?>
     <div class="bar-haut">
-        <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
+        <div class="logo-hpc"><img src="../src/img/<?= htmlspecialchars($logo_site) ?>"></div>
         <nav>
             <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <a href="about.php" class="<?php echo ($current == 'about.php') ? 'active' : ''; ?>" onclick="changeActive(this)">À propos</a>
@@ -60,7 +68,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <div class="image-icon"><img src="../src/icons/phone-call.png"></div>
             <div class="card-content">
                 <h1 class="title">Téléphone</h1>
-                <p class="description">+212 5 37 27 07 00<br>Du lundi au vendredi<br>8h30 – 16h30</p>
+                <p class="description"><?= $telephone ?><br>Du lundi au vendredi<br>8h30 – 16h30</p>
             </div>
             
         </div>
@@ -68,7 +76,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <div class="image-icon"><img src="../src/icons/email.png"></div>
             <div class="card-content">
                 <h1 class="title">Email</h1>
-                <a href="contact@hcp.ma" class="description" target="_blank"><p>contact@hcp.ma</p></a>
+                <a href="contact@hcp.ma" class="description" target="_blank"><p><?= $email ?></p></a>
                 <p class="description-email">Reponse sous 48h</p>
             </div>
         </div>
@@ -160,7 +168,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
                     <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
                 </nav>
             </div>
-            <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
+            <div class="logo-bar-bas"><img src="../src/img/<?= htmlspecialchars($logo_home) ?>"></div>
         </div>
         <div class="copy-right">
             <p>Haut-Commissariat au Plan du Maroc © 2026<br>

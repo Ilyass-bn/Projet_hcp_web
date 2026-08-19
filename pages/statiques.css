@@ -90,3 +90,19 @@
 #edit_statique_eco_1 .form-group,#edit_statique_eco .form-group{
     display: block;
 }
+
+/*card statique*/
+.card-statique{
+    display: grid;
+    grid-template-columns: 400px 800px 400px;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+.card-statique .card-st{
+    width: 100%;
+    height: 350px;
+    background-color: white;
+}
+

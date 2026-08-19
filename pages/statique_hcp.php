@@ -17,6 +17,12 @@ $linkedin_link = $pdo->query("Select linkedin_link from reseaux_link where id=0"
 $youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")->fetchColumn();
 $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
 
+
+$sql = $pdo->query("SELECT id,site,email,telephone,logo_site,logo_home FROM setting ORDER BY id DESC");
+$setting = $sql->fetchAll(PDO::FETCH_ASSOC);
+$logo_site = $pdo->query("Select logo_site from setting where id=0")->fetchColumn();
+$logo_home = $pdo->query("Select logo_home from setting where id=0")->fetchColumn();
+$site = $pdo->query("Select site from setting where id=0")->fetchColumn();
 ?>
 <?php
 include "dbconnect.php";
@@ -113,12 +119,12 @@ function getCategorieClass($categorie) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title><?= $site ?></title>
 </head>
 <body>
     <?php $current = basename($_SERVER['PHP_SELF']); ?>
     <div class="bar-haut">
-        <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
+        <div class="logo-hpc"><img src="../src/img/<?= htmlspecialchars($logo_site) ?>"></div>
         <nav>
             <a href="home.php" class="<?php echo ($current == 'home.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
             <a href="about.php" class="<?php echo ($current == 'about.php') ? 'active' : ''; ?>" onclick="changeActive(this)">À propos</a>
@@ -174,7 +180,7 @@ function getCategorieClass($categorie) {
             <div class="buttons">
                 <a href="#">Voir détails</a>
                 <?php if(!empty($statique['link_files'])): ?>
-                    <a href="../<?= $statique['link_files'] ?>" download="<?= $statique['link_files'] ?>">Télécharger</a>
+                    <a href="../<?= $statique['link_files'] ?>" download="<?= $statique['link_files'] ?>" onclick="incrementerTelechargement(<?= $statique['id'] ?>, this)">Télécharger</a>
                 <?php else: ?>
                     <a href="#" class="disabled" onclick="return false;">Télécharger</a>
                 <?php endif; ?>
@@ -214,7 +220,7 @@ function getCategorieClass($categorie) {
                     <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
                 </nav>
             </div>
-            <div class="logo-bar-bas"><img src="../src/img/logo-bar-bas1.png"></div>
+            <div class="logo-bar-bas"><img src="../src/img/<?= htmlspecialchars($logo_home) ?>"></div>
         </div>
         <div class="copy-right">
             <p>Haut-Commissariat au Plan du Maroc © 2026<br>
@@ -231,6 +237,19 @@ function getCategorieClass($categorie) {
         links.forEach(link => { link.classList.remove('active') });
         element.classList.add('active');
     }
+</script>
+
+
+<script>
+//telechargement 
+function incrementerTelechargement(id, linkElement) {
+    fetch('utilisateurs_actions/statique/incrementer_telechargement_statique.php?id=' + id)
+        .then(response => response.json())
+        .catch(error => console.error('Erreur incrementation telechargement:', error));
+    // pas de tableau ici (cartes publiques) donc pas de mise a jour visuelle,
+    // le compteur nbre_tel est juste incremente en base
+}
+
 </script>
 </body>
 </html>

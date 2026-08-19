@@ -180,3 +180,156 @@ html, body {
 .bar-top .menu-a.full{
     margin-left: 20px;  
 }
+/*card statique*/
+.card-statique{
+    display: flex;
+    justify-content: center;
+    gap:30px;
+    margin-bottom:100px;
+    margin-top:50px;
+}
+.card-statique .card-st{
+    width:400px;height:350px;
+    background-color: white;
+}
+.card-statique .card-st .card-title{
+    font-size:24px;font-family: 'Inter', 'Open Sans', -apple-system, sans-serif;
+    color:#5e1d3e;
+    padding-top:8px;padding-left:20px;
+}
+
+/*progression card*/
+.progression-container {
+    position: relative;
+    width: 230px;
+    height: 250px;
+    margin: 30px auto 0;
+}
+
+#progressChart {
+    width: 230px ;
+    height: 200px;
+}
+
+.progression-center {
+    position: absolute;
+
+    left: 50%;
+    top: 67%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 150px;
+    padding-bottom:100px;
+
+    text-align: center;
+}
+
+.progression-value {
+    font-size: 38px;
+    font-weight: 700;
+    color:#5e1d3e;
+}
+
+.progression-label {
+    margin-top: 4px;
+
+    font-size: 13px;
+    color: #333;
+}
+
+.progression-subtitle {
+    margin-top: 3px;
+
+    font-size: 10px;
+    color: #999;
+}
+
+.progression-zero,
+.progression-hundred {
+    position: absolute;
+
+    bottom: 0;
+
+    font-size: 11px;
+    color: #555;
+}
+
+.progression-zero {
+    left: 0;
+}
+
+.progression-hundred {
+    right: 0;
+}
+
+/*card statique*/
+.card-statique-1{
+    display: grid;
+    grid-template-columns: 417px 700px 417px;
+    justify-content: center;
+    gap: 31px;
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+.card-statique-1 .card-st{
+    width: 100%;
+    height: 350px;
+    background-color: white;
+    
+}
+.card-statique-1 .card-st .card-title{
+    font-size:24px;font-family: 'Inter', 'Open Sans', -apple-system, sans-serif;
+    color:#5e1d3e;
+    padding-top:8px;padding-left:20px;
+}
+.dailyChart {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.dailyChart-scroll {
+    width: 100%;
+    height: 300px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.dailyChart-scroll canvas {
+    height: 280px !important;
+    max-width: none !important;
+}
+
+.bar-top nav .account{
+    position:absolute;
+    right:0;
+    margin-right:100px;
+    align-items:center;
+    gap:10px;
+}
+
+
+
+.account-title{
+    display:flex;
+    flex-direction:column;
+    text-align:left;
+    margin-right:40px;
+    margin-top:-2px;
+}
+
+.account-title h5{
+    font-size:14px;
+    color:#5e1d3e;
+    font-weight:700;
+}
+
+.account-title span{
+    font-size:12px;
+    color:#555;
+}

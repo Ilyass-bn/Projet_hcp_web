@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "dbconnect.php";
 
 $current = basename($_SERVER['PHP_SELF']);
@@ -43,6 +44,15 @@ $sql_mois = $pdo->query("
 $mois = array_fill(1, 12, 0);
 while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     $mois[(int)$row['mois']] = (int)$row['total'];
+}
+?>
+
+<?php
+//month
+$jours = [];
+$sql_jours = $pdo->query("SELECT date_jour, nbre_tel FROM telechargement_jour_statique ORDER BY date_jour ASC");
+while ($row = $sql_jours->fetch(PDO::FETCH_ASSOC)) {
+    $jours[$row['date_jour']] = (int) $row['nbre_tel'];
 }
 ?>
 
@@ -455,7 +465,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     <div class="bar-haut" id="sidebar">
         <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
         <nav>
-            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
+            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/home-icon.png" data-default="../src/icons/home-icon.png" data-active="../src/icons/home-icon-active.png">Accueil</a>
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
@@ -463,21 +473,24 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="contenu_site.php" class="<?php echo ($current == 'contenu_site.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
-            <a href="#" onclick="changeActive(this)">Support</a>
-            <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
+            <a href="setting.php" class="<?php echo ($current == 'setting.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <button class="btn-site" onclick="window.location.href='home.php'">Voir le site</button>
             <button class="btn-deconnextion" onclick="window.location.href='login.php'">Déconnexion</button>
         </nav>
     </div>
 
     <!--bar top -->
-    <div class="bar-top">
+    <div class="bar-top" style="height:60px;">
         <nav>
             <a href="#" class="menu-a" id="bartop" onclick="toggleSidebar()"><img src="../src/icons/menu-icon.png"></a>
-            <a href="#" class="not-a" onclick="changeActive(this)"><img src="../src/icons/notification-icon.png"></a>
-            <a href="#" class="mail-a" onclick="changeActive(this)"><img src="../src/icons/email-icon.png"></a>
-            <a href="#" class="account-a" onclick="changeActive(this)"><img src="../src/icons/account-icon.png"></a>
+            <div class="account" style="margin-right:30px;">
+               <a href="#" class="account-a" onclick="changeActive(this)"><img src="../src/icons/account-icon.png"></a> 
+               <div class="account-title">
+                    <h5>Admin</h5>
+                    <span><?= htmlspecialchars($_SESSION["nom"] ?? '') ?></span>
+               </div>
+            </div>
+            
         </nav>
     </div>
     
@@ -828,15 +841,21 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
 
         <!--card statique-->
         <div class="card-statique" style="margin-bottom:0px;">
-            <div class="card-st">
-                <h1 class="card-title">Publications par statut</h1>
+            <div class="card-st" >
+                <h1 class="card-title" style="font-size:22px;">Répartition des secteurs d'activité</h1>
                 <div class="statusChart">
                    <canvas  id="statusChart"></canvas> 
                 </div>
                 
             </div>
+            <div class="card-st" style="width:800px;">
+                <h1 class="card-title"  style="font-size:22px;">Évolution des statistiques par mois</h1>
+                <div class="monthlyChart">
+                    <canvas id="monthlyChart"></canvas>
+                </div>
+            </div>                        
             <div class="card-st">
-                <h1 class="card-title">Publication globale</h1>
+                <h1 class="card-title" style="font-size:22px;">Taux de publication global</h1>
                 <div class="progression-container">
                     <canvas id="progressChart"></canvas>
                     <div class="progression-center">
@@ -846,34 +865,35 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
                     </div>
                 </div>
             </div>
-            <div class="card-st">
-                <h1 class="card-title">Réponses collectées</h1>
-                <div class="monthlyChart">
-                    <canvas id="monthlyChart"></canvas>
-                </div>
-            </div>
-            <div class="card-st">
-                <h1 class="card-title">Activités récentes</h1>
-            </div>
+            
         </div>
+
+
         <div class="card-statique">
             <div class="card-st">
-                <h1 class="card-title">Publications par statut</h1>
+                <h1 class="card-title" style="font-size:21px;">Indicateurs économiques régionaux</h1>
                 <div class="statusChart" style="height:300px;">
                    <canvas  id="ecoChart"></canvas> 
                 </div>
                 
             </div>
             <div class="card-st" style="width:800px;">
-                <h1 class="card-title">Réponses collectées</h1>
+                <h1 class="card-title" style="font-size:22px;">Comparaison des indicateurs des directions régionales</h1>
                 <div class="monthlyChart" style="height:280px;">
-                    <canvas id="demChart"></canvas>
+                    <canvas id="demChart" ></canvas>
                 </div>
             </div>
             <div class="card-st">
-                <h1 class="card-title">Activités récentes</h1>
+                <h1 class="card-title" style="font-size:22px;">Nombre de téléchargements</h1>
+                <div class="dailyChart" style="height:280px;">
+                    <div class="dailyChart-scroll">
+                        <canvas id="dailyChart" height="250"></canvas>
+                    </div>
+                    
+                </div>
             </div>
         </div>
+        
     </div>
     </div>
     
@@ -914,6 +934,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     document.getElementById('sidebar').classList.toggle('hidden');
     document.getElementById('content').classList.toggle('full');
     document.getElementById('bartop').classList.toggle('full');
+    
     }
         
     document.addEventListener('DOMContentLoaded', () => {
@@ -1377,5 +1398,58 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
+
+
+<script>
+//jour telechargement
+document.addEventListener("DOMContentLoaded", function () {
+    const ctxDaily = document.getElementById("dailyChart");
+    const dailyData = <?= json_encode(array_values($jours)) ?>;
+    const dailyLabels = <?= json_encode(array_keys($jours)) ?>;
+
+    const gradient = ctxDaily.getContext("2d").createLinearGradient(0, 0, 0, 250);
+    gradient.addColorStop(0, "rgba(107, 18, 60, 0.35)");
+    gradient.addColorStop(1, "rgba(107, 18, 60, 0)");
+
+    new Chart(ctxDaily, {
+        type: "line",
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: "Downloads",
+                data: dailyData,
+                borderColor: "#6B123C",
+                backgroundColor: gradient,
+                pointBackgroundColor: "#fff",
+                pointBorderColor: "#6B123C",
+                pointBorderWidth: 2,
+                pointRadius: 5,
+                pointHoverRadius: 7,
+                borderWidth: 2,
+                fill: true,
+                tension: 0.35
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: "#6B123C",
+                    padding: 10,
+                    displayColors: false
+                }
+            },
+            scales: {
+                y: { beginAtZero: true, grid: { color: "#f0f0f0" } },
+                x: { grid: { display: false } }
+            }
+        }
+    });
+});
+</script>
+
 </body>
 </html>

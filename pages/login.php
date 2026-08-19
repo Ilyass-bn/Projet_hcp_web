@@ -12,12 +12,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($password, $user["password"])) {
         $_SESSION["id"] = $user["id"];
+        $_SESSION["nom"]  = $user["nom_complet"];
         header("Location: dashboard.php");
         exit;
     } else {
         echo "Nom d'utilisateur ou mot de passe incorrect.";
     }
 }
+
+
+$sql = $pdo->query("SELECT id,site,email,telephone,logo_site,logo_home FROM setting ORDER BY id DESC");
+$setting = $sql->fetchAll(PDO::FETCH_ASSOC);
+$logo_site = $pdo->query("Select logo_site from setting where id=0")->fetchColumn();
+$logo_home = $pdo->query("Select logo_home from setting where id=0")->fetchColumn();
+$site = $pdo->query("Select site from setting where id=0")->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -30,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title><?= $site ?></title>
 </head>
 <body>
 
-    <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
+    <div class="logo-hpc"><img src="../src/img/<?= htmlspecialchars($logo_site) ?>"></div>
     <div class="home-body-login">
         <form method="POST" action="">
             <div class="text">

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "dbconnect.php";
 
 $current = basename($_SERVER['PHP_SELF']);
@@ -21,6 +22,7 @@ $youtube_link = $pdo->query("Select youtube_link from reseaux_link where id=0")-
 $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=0")->fetchColumn();
 
 ?>
+
 <?php
 $sql_mois = $pdo->query("
     SELECT MONTH(date_fin) AS mois, COUNT(*) AS total
@@ -149,7 +151,7 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
     <div class="bar-haut" id="sidebar">
         <div class="logo-hpc"><img src="../src/img/hcp_logo.png"></div>
         <nav>
-            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Accueil</a>
+            <a href="dashboard.php" class="<?php echo ($current == 'dashboard.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/home-icon.png" data-default="../src/icons/home-icon.png" data-active="../src/icons/home-icon-active.png">Accueil</a>
             <p>GESTION DE CONTENU</p>
             <a href="utilisateurs.php" class="<?php echo ($current == 'utilisateurs.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/people-admin.png" data-default="../src/icons/people-admin.png" data-active="../src/icons/people-admin-active.png">Utilisateurs</a>
             <a href="enquete.php" class="<?php echo ($current == 'enquete.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/document-blackred.png" data-default="../src/icons/document-blackred.png" data-active="../src/icons/document-blackred-active.png">Enquêtes</a>
@@ -157,21 +159,24 @@ while ($row = $sql_mois->fetch(PDO::FETCH_ASSOC)) {
             <a href="publication.php" class="<?php echo ($current == 'publication.php') ? 'active' : ''; ?>" onclick="changeActive(this)" onclick="changeActive(this)"><img src="../src/icons/publication-admin.png" data-default="../src/icons/publication-admin.png" data-active="../src/icons/publication-admin-active.png">Publications</a>
             <a href="contenu_site.php" class="<?php echo ($current == 'contenu_site.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-media.png" data-default="../src/icons/icon-media.png" data-active="../src/icons/icon-media-active.png">Contenu du site</a>
             <p>SYSTÈME</p>
-            <a href="#" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
-            <a href="#" onclick="changeActive(this)">Support</a>
-            <a href="contact.php" class="<?php echo ($current == 'contact.php') ? 'active' : ''; ?>" onclick="changeActive(this)">Contactez-nous</a>
+            <a href="setting.php" class="<?php echo ($current == 'setting.php') ? 'active' : ''; ?>" onclick="changeActive(this)"><img src="../src/icons/icon-settings.png" data-default="../src/icons/icon-settings.png" data-active="../src/icons/icon-settings-active.png">Paramètres</a>
             <button class="btn-site" onclick="window.location.href='home.php'">Voir le site</button>
             <button class="btn-deconnextion" onclick="window.location.href='login.php'">Déconnexion</button>
         </nav>
     </div>
 
     <!--bar top -->
-    <div class="bar-top">
+    <div class="bar-top" style="height:60px;">
         <nav>
             <a href="#" class="menu-a" id="bartop" onclick="toggleSidebar()"><img src="../src/icons/menu-icon.png"></a>
-            <a href="#" class="not-a" onclick="changeActive(this)"><img src="../src/icons/notification-icon.png"></a>
-            <a href="#" class="mail-a" onclick="changeActive(this)"><img src="../src/icons/email-icon.png"></a>
-            <a href="#" class="account-a" onclick="changeActive(this)"><img src="../src/icons/account-icon.png"></a>
+            <div class="account" style="margin-right:30px;">
+               <a href="#" class="account-a" onclick="changeActive(this)"><img src="../src/icons/account-icon.png"></a> 
+               <div class="account-title">
+                    <h5>Admin</h5>
+                    <span><?= htmlspecialchars($_SESSION["nom"] ?? '') ?></span>
+               </div>
+            </div>
+            
         </nav>
     </div>
     
