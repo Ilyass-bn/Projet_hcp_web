@@ -331,25 +331,27 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <img src="../src/icons/ai.png">
         </button>
     </div>
-
-    <div class="bar-bas">
-        <div class="reseau">
-            <p>Rejoignez-nous sur :</p>
-            <nav class="logo-media">
-                <a href="<?= $youtube_link ?>"><img src="../src/icons/youtube-icon1.png"></a>
-                <a href="<?= $facebook_link ?>"><img src="../src/icons/facebook-icon1.png"></a>
-                <a href="<?= $instagram_link ?>"><img src="../src/icons/instagram-icon1.png"></a>
-                <a href="<?= $x_link ?>"><img src="../src/icons/twitter-icon1.png"></a>
-                <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
-            </nav>
-        </div>
-        <div class="logo-bar-bas"><img src="../src/img/<?= htmlspecialchars($logo_home) ?>"></div>
+    <div class="bottom">
+            <div class="bar-bas">
+                <div class="reseau">
+                    <p>Rejoignez-nous sur :</p>
+                    <nav class="logo-media">
+                        <a href="<?= $youtube_link ?>"><img src="../src/icons/youtube-icon1.png"></a>
+                        <a href="<?= $facebook_link ?>"><img src="../src/icons/facebook-icon1.png"></a>
+                        <a href="<?= $instagram_link ?>"><img src="../src/icons/instagram-icon1.png"></a>
+                        <a href="<?= $x_link ?>"><img src="../src/icons/twitter-icon1.png"></a>
+                        <a href="<?= $linkedin_link ?>"><img src="../src/icons/linkedin-icon1.png"></a>
+                    </nav>
+                </div>
+            <div class="logo-bar-bas"><img src="../src/img/<?= htmlspecialchars($logo_home) ?>"></div>
     </div>
     <div class="copy-right">
         <p>Haut-Commissariat au Plan du Maroc © 2026<br>
         Centre National de Documentation<br>
         En poursuivant votre navigation, vous acceptez l'utilisation de cookies, afin de réaliser des statistiques d'audience.</p>
     </div>
+    </div>
+    
     
 
 
