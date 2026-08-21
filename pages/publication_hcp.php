@@ -178,7 +178,7 @@ $site = $pdo->query("Select site from setting where id=0")->fetchColumn();
             </div>
 
             <div class="buttons">
-                <a href="#">Voir détails</a>
+                <a href="publication_detail.php?id=<?= urlencode($publication['id']) ?>">Voir détails</a>
                 <?php if(!empty($publication['link_pub'])): ?>
                     <a href="../<?= $publication['link_pub'] ?>" download="<?= $publication['link_pub'] ?>" onclick="incrementerTelechargement(<?= $publication['id'] ?>, this)">Télécharger</a>
                 <?php else: ?>

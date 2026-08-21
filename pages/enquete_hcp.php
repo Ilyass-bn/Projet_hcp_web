@@ -144,11 +144,10 @@ $total_pages = ceil($total / $par_page);
             </div>
 
             <div class="buttons">
-                <a href="#">Voir détails</a>
                  <?php if(!empty($enquete['link'])): ?>
-                    <a href="../<?= $enquete['link'] ?>" download="<?= $enquete['link'] ?>">Télécharger</a>
+                    <a href="../<?= $enquete['link'] ?>" download="<?= $enquete['link'] ?>" style="margin-left:280px;">Télécharger</a>
                 <?php else: ?>
-                    <a href="#" class="disabled" onclick="return false;">Télécharger</a>
+                    <a href="#" class="disabled" onclick="return false;" style="margin-left:280px;">Télécharger</a>
                 <?php endif; ?>
             </div>
         </div>

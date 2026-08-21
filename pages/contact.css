@@ -129,22 +129,21 @@ html, body {
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.card-location .map img{
+.card-location .map-image img{
     padding-left:40px;
-    padding-bottom:5px;
-    height:220px;
+    height:220px;padding-bottom:10px;
 }
 .card-location .text-info{
     padding-bottom:10px;padding-left:40px;
 }
-.card-location .map p{
+.card-location .map{
     color:#812754;
     text-decoration: none;
     padding-left:40px;padding-top:3px;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;text-decoration: underline;
 }
-.card-location .map p:hover{
+.card-location .map:hover{
     color:#bc3a7b;
     cursor:pointer;
 }

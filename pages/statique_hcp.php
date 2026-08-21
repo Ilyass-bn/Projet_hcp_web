@@ -178,7 +178,7 @@ function getCategorieClass($categorie) {
             </div>
 
             <div class="buttons">
-                <a href="#">Voir détails</a>
+                <a href="statique_detail.php?id=<?= urlencode($statique['id']) ?>">Voir détails</a>
                 <?php if(!empty($statique['link_files'])): ?>
                     <a href="../<?= $statique['link_files'] ?>" download="<?= $statique['link_files'] ?>" onclick="incrementerTelechargement(<?= $statique['id'] ?>, this)">Télécharger</a>
                 <?php else: ?>

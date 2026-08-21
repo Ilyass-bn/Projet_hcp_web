@@ -102,7 +102,7 @@ $email = $pdo->query("Select email from setting where id=0")->fetchColumn();
         </div>
     </div>
     <!--cards information-->
-    <div class="cards-information">
+    <div class="cards-information" style="z-index:100;">
         <div class="card-envoyer">
             <form action="send_mail.php" method="POST">
                 <h1 class="text-info">Envoyer-nous un message</h1>
@@ -117,8 +117,8 @@ $email = $pdo->query("Select email from setting where id=0")->fetchColumn();
         </div>
         <div class="card-location">
             <h1 class="text-info">Nous trouver</h1>
-            <div class="map"><img src="../src/img/map.PNG"></div>
-            <a href="https://maps.app.goo.gl/FVpDRq33VH1SC774A" class="map" target="_blank"><p>Voir sur Google Maps</p></a>    
+            <div class="map-image"><img src="../src/img/map.PNG"></div>
+            <a href="https://maps.app.goo.gl/FVpDRq33VH1SC774A" class="map" target="_blank">Voir sur Google Maps</a>    
         </div>
         <div class="card-houres">
             <h1 class="text-info">Horaires d'ouverture</h1>
@@ -156,7 +156,7 @@ $email = $pdo->query("Select email from setting where id=0")->fetchColumn();
         </button>
     </div>
 
-    <div class="bottom">
+    <div class="bottom" style="z-index:0;">
         <div class="bar-bas">
             <div class="reseau">
                 <p>Rejoignez-nous sur :</p>
