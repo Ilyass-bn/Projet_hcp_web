@@ -80,15 +80,6 @@ Un **assistant IA (chatbot)** est également intégré pour répondre aux questi
 
 ---
 
-## 🖼️ Aperçu
-
-> Ajoute ici tes captures d'écran dans un dossier `/screenshots`
-
-```markdown
-![Accueil](screenshots/Acceuil.PNG)
-![Dashboard](screenshots/dashboard-acceuil.PNG)
-![Publications](screenshots/publication.PNG)
-```
 
 ---
 ## 🖼️ Aperçu du projet
