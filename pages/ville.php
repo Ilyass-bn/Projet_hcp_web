@@ -302,7 +302,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
     </div>
    
     <!--card email enquete ...-->
-    <div class="cards-ville-info">
+    <div class="cards-ville-info" style="z-index:100;">
         <a href="<?= $enquete_link ?>"  target="_blank"><div class="card-v">
             <div class="image-icon"><img src="../src/icons/document-blackred.png"></div>
             <p>Enquêtes en cours</p>
@@ -331,7 +331,7 @@ $instagram_link = $pdo->query("Select instagram_link from reseaux_link where id=
             <img src="../src/icons/ai.png">
         </button>
     </div>
-    <div class="bottom">
+    <div class="bottom" style="z-index:0;">
             <div class="bar-bas">
                 <div class="reseau">
                     <p>Rejoignez-nous sur :</p>

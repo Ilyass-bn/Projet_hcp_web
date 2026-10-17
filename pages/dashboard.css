@@ -1,17 +1,16 @@
 .bar-bottom{
-    position:fixed;
-    bottom: 0;
+   
+    flex-shrink: 0;
     width: 100%;
     text-align: center;
     padding: 14px;
     color: white;
     background-color: #5e1d3e;
-    border: none;
-    margin: 0;
     display: flex;
-    justify-content: center;
-    gap:140px;
-    z-index:100;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 .bar-bottom .text-cara{
     position: absolute;
@@ -33,6 +32,18 @@ html, body {
     width: 100%;
     overflow-x: hidden;
 }
+html {
+    height: 100%;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.content {
+    flex: 1 0 auto;
+}
+
 .bar-haut{
     display: flex;
     flex-direction: column;

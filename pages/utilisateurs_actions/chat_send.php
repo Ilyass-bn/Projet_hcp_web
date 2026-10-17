@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include "../dbconnect.php";
 
-$apiKey = "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"; 
+$apiKey = "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"; 
 
 $input = json_decode(file_get_contents('php://input'), true);
 $userMessage = $input['message'] ?? '';
@@ -14,51 +14,26 @@ if (empty($userMessage)) {
 }
 
 //AI load the database
-$stmt = $pdo->query("SELECT Titre_pub, Categorie, date_pub, description FROM publication ORDER BY date_pub DESC LIMIT 10");
-$publications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-  //tableau enquete 
-$stmt2 = $pdo->query("SELECT ID_enquete, Titre, Type, Direction, date_fin FROM enquete ORDER BY date_debut DESC LIMIT 10");
-$enquetes = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-  //tableau statiques
-$stmt3 = $pdo->query("SELECT ID_stat, Titre_stat, description_stat, Categorie_stat, date_stat_pub FROM statique ORDER BY date_stat_pub DESC LIMIT 10");
-$statiques = $stmt3->fetchAll(PDO::FETCH_ASSOC); 
+
 
  //tableau gestion_donne_economique
-$stmt4 = $pdo->query("SELECT PIB, Population, PIB_dp, Inflation FROM gestion_donne_economique");
+$stmt4 = $pdo->query("SELECT PIB, Population, PIB_dp, Inflation FROM gestion_donne_economique LIMIT 10");
 $economique = $stmt4->fetchAll(PDO::FETCH_ASSOC);
 
  //tableau  gestion_donn_dem
-$stmt5 = $pdo->query("SELECT ID_hcp, Hcp, habitants, Taux_croiss, Superficie, Taux_chomage, Population, PIB_reg, Etablissements, Taux_emploi FROM gestion_donn_dem");
+$stmt5 = $pdo->query("SELECT ID_hcp, Hcp, habitants, Taux_croiss, Superficie, Taux_chomage, Population, PIB_reg, Etablissements, Taux_emploi FROM gestion_donn_dem LIMIT 5");
 $donneesDem = $stmt5->fetchAll(PDO::FETCH_ASSOC);
 
  //tableau reseau s
-$stmt6 = $pdo->query("SELECT ID_res, Direction_reg, Bureaux_prov, Donnees_coll FROM gestion_reseau");
+$stmt6 = $pdo->query("SELECT ID_res, Direction_reg, Bureaux_prov, Donnees_coll FROM gestion_reseau LIMIT 5");
 $reseau = $stmt6->fetchAll(PDO::FETCH_ASSOC);
  //tableau reseux sociaux 
 $stmt7 = $pdo->query("SELECT facebook_link, x_link, linkedin_link, youtube_link, instagram_link FROM reseaux_link WHERE id = 0");
 $reseauxLink = $stmt7->fetch(PDO::FETCH_ASSOC);
 
-$contexte = "Tu es l'assistant du site du Haut-Commissariat au Plan (HCP). Voici la liste des publications disponibles dans la base de données :\n\n";
-foreach ($publications as $pub) {
-    $contexte .= "- Titre: {$pub['Titre_pub']} | Catégorie: {$pub['Categorie']} | Date: {$pub['date_pub']}\n";
-    $contexte .= "  Description: {$pub['description']}\n\n";
-}
-
-$contexte .= "\n=== ENQUÊTES ===\n";
-foreach ($enquetes as $enq) {
-    $contexte .= "- ID: {$enq['ID_enquete']} | Titre: {$enq['Titre']} | Type: {$enq['Type']} | Direction: {$enq['Direction']}\n";
-    $contexte .= "  Date publication:{$enq['date_fin']}\n\n";
-}
-
-$contexte .= "\n=== STATISTIQUES ===\n";
-foreach ($statiques as $stat) {
-    $contexte .= "- ID: {$stat['ID_stat']} | Titre: {$stat['Titre_stat']} | Catégorie: {$stat['Categorie_stat']} | Date: {$stat['date_stat_pub']}\n";
-    $contexte .= "  Description: {$stat['description_stat']}\n\n";
-}
-
-$contexte .= "\n=== DONNÉES ÉCONOMIQUES (À propos) ===\n";
+$contexte = "\n=== DONNÉES ÉCONOMIQUES (À propos) ===\n";
 foreach ($economique as $eco) {
     $contexte .= "- PIB réel (milliers MAD): {$eco['PIB']} | Population (millions): {$eco['Population']} | PIB Dépenses publiques: {$eco['PIB_dp']} | Inflation: {$eco['Inflation']}%\n\n";
 }
@@ -87,7 +62,24 @@ if ($reseauxLink) {
 
 
 $contexte .= "Réponds aux questions de l'utilisateur en te basant sur ces données. Si l'information demandée n'y figure pas, dis-le clairement.";
+$contexte .= "Tu es l'assistant virtuel officiel du site du Haut-Commissariat au Plan (HCP) du Maroc.
 
+RÔLE :
+- Tu aides les visiteurs à trouver des informations sur les publications, enquêtes, statistiques et données économiques/démographiques du HCP.
+- Tu réponds uniquement à partir des données fournies ci-dessous. Tu ne dois jamais inventer de chiffres, dates ou titres.
+- Si une information demandée n'est pas présente dans les données fournies, dis-le clairement et propose à l'utilisateur de consulter directement le site ou de contacter le HCP, plutôt que de deviner.
+
+TON :
+- Reste professionnel, clair et concis (institution publique).
+- Réponds en français par défaut, sauf si l'utilisateur écrit en arabe ou en anglais — dans ce cas, réponds dans la même langue.
+- Pas de familiarité excessive, mais reste accessible (pas de jargon technique inutile).
+
+FORMAT :
+- Réponses courtes et directes (3-5 phrases maximum sauf si l'utilisateur demande plus de détails).
+- Utilise des listes à puces si tu cites plusieurs publications/enquêtes/statistiques.
+- Ne répète jamais l'intégralité des données brutes fournies : résume et sélectionne ce qui est pertinent pour la question posée.
+
+Voici les données disponibles :\n\n";
 
 $messages = [
     ['role' => 'system', 'content' => $contexte]
@@ -96,7 +88,7 @@ $messages = array_merge($messages, $history);
 $messages[] = ['role' => 'user', 'content' => $userMessage];
 
 $data = [
-    'model' => 'llama-3.3-70b-versatile',
+    'model' => 'openai/gpt-oss-120b',
     'max_tokens' => 1024,
     'messages' => $messages
 ];

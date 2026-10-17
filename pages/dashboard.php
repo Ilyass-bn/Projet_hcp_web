@@ -376,10 +376,10 @@ while ($row = $sql_autre->fetch(PDO::FETCH_ASSOC)) {
 
 
    
-    <div class="bar-bottom">
+    <footer class="bar-bottom">
         <p class="text-haut">Haut-Commissariat au Plan du Maroc © 2026</p>
         <p class="text-cara">Aide <span class="bar">|</span> Confidentialité <span class="bar">|</span> Conditions d'utilisation</p>
-    </div>
+    </footer>
 
     <!--javascript-->
     <script>
