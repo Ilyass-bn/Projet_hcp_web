@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 include "../dbconnect.php";
 
-$apiKey = "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"; 
+$apiKey = ""; 
 
 $input = json_decode(file_get_contents('php://input'), true);
 $userMessage = $input['message'] ?? '';
